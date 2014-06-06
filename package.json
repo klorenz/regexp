@@ -1,6 +1,6 @@
 {
   "name": "regexp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Regex Parser",
   "keywords": [],
   "dependencies": {},
@@ -18,5 +18,8 @@
     "url": "https://github.com/ForbesLindesay/regexp.git"
   },
   "author": "ForbesLindesay",
+  "contributors": [
+      "Kay-Uwe (Kiwi) Lorenz <kiwi@franka.dyndns.org> (http://quelltexter.org)"
+  ],
   "license": "MIT"
 }

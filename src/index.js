@@ -54,7 +54,7 @@ function CaptureGroup(body, name) {
   // a bug means this gets called multiple times so memoize based on the offset
   this.index = cgs[this.offset] || (cgs[this.offset] = index++)
   this.body = body
-  this.name = name || null
+  if (name) this.name = name;
 }
 CaptureGroup.prototype = Object.create(Group.prototype)
 CaptureGroup.prototype.constructor = CaptureGroup

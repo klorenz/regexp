@@ -35,7 +35,9 @@ negativeLookahead = "?!" regexp:regexp   { return new Group('negative-lookahead'
 positiveLookbehind = "?<=" regexp:regexp   { return new Group('positive-lookbehind', regexp) }
 negativeLookbehind = "?<!" regexp:regexp   { return new Group('negative-lookbehind', regexp) }
 
-namedGroupCapture = (\?P?<) name:([A-Za-z_]\w*) ">" regexp:regexp   { return new CaptureGroup(regexp, name) }
+namedGroupCapture = namedGroupIndicator name:([A-Za-z_] [A-Za-z0-9_]*) ">" regexp:regexp   { return new CaptureGroup(regexp, name) }
+
+namedGroupIndicator = "?P<" / "?<"
 
 // flags (?iLmsux)
 // (?(id/name)yes|no)
