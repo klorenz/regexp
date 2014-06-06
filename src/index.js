@@ -48,12 +48,13 @@ Group.prototype = Object.create(Token.prototype)
 Group.prototype.constructor = Group
 
 exports.CaptureGroup = CaptureGroup
-function CaptureGroup(body) {
+function CaptureGroup(body, name) {
   Group.call(this, 'capture-group')
 
   // a bug means this gets called multiple times so memoize based on the offset
   this.index = cgs[this.offset] || (cgs[this.offset] = index++)
   this.body = body
+  this.name = name || null
 }
 CaptureGroup.prototype = Object.create(Group.prototype)
 CaptureGroup.prototype.constructor = CaptureGroup

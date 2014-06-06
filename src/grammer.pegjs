@@ -32,7 +32,13 @@ groupCapture      =      regexp:regexp   { return new CaptureGroup(regexp) }
 groupNoCapture    = "?:" regexp:regexp   { return new Group('non-capture-group', regexp) }
 positiveLookahead = "?=" regexp:regexp   { return new Group('positive-lookahead', regexp) }
 negativeLookahead = "?!" regexp:regexp   { return new Group('negative-lookahead', regexp) }
+positiveLookbehind = "?<=" regexp:regexp   { return new Group('positive-lookbehind', regexp) }
+negativeLookbehind = "?<!" regexp:regexp   { return new Group('negative-lookbehind', regexp) }
 
+namedGroupCapture = (\?P?<) name:([A-Za-z_]\w*) ">" regexp:regexp   { return new CaptureGroup(regexp, name) }
+
+// flags (?iLmsux)
+// (?(id/name)yes|no)
 
 charset "CharacterSet" = "[" invert:"^"? body:(charsetRange / charsetTerminal)* "]" { return new CharSet(!!invert, body) }
 charsetRange "CharacterRange" = start:charsetTerminal "-" end:charsetTerminal { return new CharacterRange(start, end) }
