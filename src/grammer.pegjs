@@ -27,7 +27,7 @@ greedyFlag      = "?"
 integer = num:([0-9]+) { return +num.join('') }
 
 
-subexp = "(" body:(positiveLookahead / negativeLookahead / groupNoCapture / groupCapture) ")" { return body}
+subexp = "(" body:(positiveLookahead / negativeLookahead / positiveLookbehind / negativeLookbehind / namedGroupCapture / groupNoCapture / groupCapture) ")" { return body}
 groupCapture      =      regexp:regexp   { return new CaptureGroup(regexp) }
 groupNoCapture    = "?:" regexp:regexp   { return new Group('non-capture-group', regexp) }
 positiveLookahead = "?=" regexp:regexp   { return new Group('positive-lookahead', regexp) }
