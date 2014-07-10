@@ -54,10 +54,16 @@ anyCharacter = "." { return new Token('any-character') }
 
 literal "Literal" = value:[^|\\/.\[\(\)\?\+\*\$\^] { return new Literal(value) }
 
-escapedCharacter = word_boundaryCharacter /  nonWord_boundaryCharacter /  controlCharacter /  digitCharacter /  non_digitCharacter /  formFeedCharacter /  lineFeedCharacter /  carriageReturnCharacter /  whiteSpaceCharacter /  nonWhiteSpaceCharacter /  tabCharacter /  verticalTabCharacter /  wordCharacter /  nonWordCharacter /  backReference /  octalCharacter /  hexCharacter /  unicodeCharacter /  nullCharacter / otherEscaped
+escapedCharacter = word_boundaryCharacter /  nonWord_boundaryCharacter /  beginOfString / endOfStringBeforeNL / endOfString / matchingStartPosition / controlCharacter /  digitCharacter /  non_digitCharacter /  formFeedCharacter /  lineFeedCharacter /  carriageReturnCharacter /  whiteSpaceCharacter /  nonWhiteSpaceCharacter /  tabCharacter /  verticalTabCharacter /  wordCharacter /  nonWordCharacter /  backReference /  octalCharacter /  hexCharacter /  unicodeCharacter /  nullCharacter / otherEscaped
 
 backspaceCharacter = "\\b" { return new Token('backspace') }
 word_boundaryCharacter = "\\b" { return new Token('word-boundary') }
+
+beginOfString = "\\A" { return new Token('begin-of-string') }
+endOfStringBeforeNL = "\\Z" { return new Token('end-of-string-before-nl') }
+endOfString = "\\z" { return new Token('end-of-string') }
+matchingStartPosition = "\\G" { return new Token('match-start-position') }
+
 nonWord_boundaryCharacter = "\\B" { return new Token('non-word-boundary') }
 digitCharacter = "\\d" { return new Token('digit') }
 non_digitCharacter = "\\D" { return new Token('non-digit') }
