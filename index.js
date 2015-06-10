@@ -566,7 +566,7 @@ var parser = function() {
       return new Literal(n);
     }, Wr = ".", Ir = '"."', Jr = function() {
       return new Token("any-character");
-    }, Kr = "Literal", Nr = /^[^|\\\/.[()?+*$\^]/, Vr = "[^|\\\\\\/.[()?+*$\\^]", Xr = "\\b", Yr = '"\\\\b"', nl = function() {
+    }, Kr = "Literal", Nr = /^[^|\\.[()?+*$\^]/, Vr = "[^|\\\\.[()?+*$\\^]", Xr = "\\b", Yr = '"\\\\b"', nl = function() {
       return new Token("backspace");
     }, tl = function() {
       return new Token("word-boundary");
