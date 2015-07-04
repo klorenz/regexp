@@ -43,6 +43,10 @@ function CharacterRange(n, t) {
   Token.call(this, "range"), this.start = n, this.end = t;
 }
 
+function CharacterClass(n, t) {
+  Token.call(this, "charclass"), this.start = n, this.end = t;
+}
+
 function Literal(n) {
   Token.call(this, "literal"), this.body = n, this.escaped = this.body != this.text;
 }
@@ -69,14 +73,14 @@ function ControlCharacter(n) {
 
 var parser = function() {
   function n(n, t) {
-    function r() {
+    function l() {
       this.constructor = n;
     }
-    r.prototype = t.prototype, n.prototype = new r();
+    l.prototype = t.prototype, n.prototype = new l();
   }
-  function t(n, t, r, l, u) {
+  function t(n, t, l, r, u) {
     function e(n, t) {
-      function r(n) {
+      function l(n) {
         function t(n) {
           return n.charCodeAt(0).toString(16).toUpperCase();
         }
@@ -90,545 +94,567 @@ var parser = function() {
           return "\\u" + t(n);
         });
       }
-      var l, u;
+      var r, u;
       switch (n.length) {
        case 0:
-        l = "end of input";
+        r = "end of input";
         break;
 
        case 1:
-        l = n[0];
+        r = n[0];
         break;
 
        default:
-        l = n.slice(0, -1).join(", ") + " or " + n[n.length - 1];
+        r = n.slice(0, -1).join(", ") + " or " + n[n.length - 1];
       }
-      return u = t ? '"' + r(t) + '"' : "end of input", "Expected " + l + " but " + u + " found.";
+      return u = t ? '"' + l(t) + '"' : "end of input", "Expected " + r + " but " + u + " found.";
     }
-    this.expected = n, this.found = t, this.offset = r, this.line = l, this.column = u, 
+    this.expected = n, this.found = t, this.offset = l, this.line = r, this.column = u, 
     this.name = "SyntaxError", this.message = e(n, t);
   }
-  function r(n) {
-    function r() {
-      return n.substring(yu, ku);
-    }
+  function l(n) {
     function l() {
-      return yu;
+      return n.substring(Vu, Nu);
+    }
+    function r() {
+      return Vu;
     }
     function u(t) {
-      function r(t, r, l) {
+      function l(t, l, r) {
         var u, e;
-        for (u = r; l > u; u++) e = n.charAt(u), "\n" === e ? (t.seenCR || t.line++, t.column = 1, 
+        for (u = l; r > u; u++) e = n.charAt(u), "\n" === e ? (t.seenCR || t.line++, t.column = 1, 
         t.seenCR = !1) : "\r" === e || "\u2028" === e || "\u2029" === e ? (t.line++, t.column = 1, 
         t.seenCR = !0) : (t.column++, t.seenCR = !1);
       }
-      return wu !== t && (wu > t && (wu = 0, Tu = {
+      return Xu !== t && (Xu > t && (Xu = 0, Yu = {
         line: 1,
         column: 1,
         seenCR: !1
-      }), r(Tu, wu, t), wu = t), Tu;
+      }), l(Yu, Xu, t), Xu = t), Yu;
     }
     function e(n) {
-      gu > ku || (ku > gu && (gu = ku, xu = []), xu.push(n));
+      ne > Nu || (Nu > ne && (ne = Nu, te = []), te.push(n));
     }
     function o(n) {
       var t = 0;
       for (n.sort(); t < n.length; ) n[t - 1] === n[t] ? n.splice(t, 1) : t++;
     }
     function c() {
-      var t, r, l, u, o;
-      return t = ku, r = a(), null !== r ? (l = ku, 124 === n.charCodeAt(ku) ? (u = bt, 
-      ku++) : (u = null, 0 === Ru && e(kt)), null !== u ? (o = c(), null !== o ? (u = [ u, o ], 
-      l = u) : (ku = l, l = vt)) : (ku = l, l = vt), null === l && (l = At), null !== l ? (yu = t, 
-      r = yt(r, l), null === r ? (ku = t, t = r) : t = r) : (ku = t, t = vt)) : (ku = t, 
-      t = vt), t;
+      var t, l, r, u, o;
+      return t = Nu, l = a(), null !== l ? (r = Nu, 124 === n.charCodeAt(Nu) ? (u = At, 
+      Nu++) : (u = null, 0 === le && e(yt)), null !== u ? (o = c(), null !== o ? (u = [ u, o ], 
+      r = u) : (Nu = r, r = kt)) : (Nu = r, r = kt), null === r && (r = vt), null !== r ? (Vu = t, 
+      l = wt(l, r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, t = kt)) : (Nu = t, 
+      t = kt), t;
     }
     function a() {
-      var n, t, r, l, u;
-      if (n = ku, t = s(), null === t && (t = At), null !== t) if (r = ku, Ru++, l = h(), 
-      Ru--, null === l ? r = At : (ku = r, r = vt), null !== r) {
-        for (l = [], u = p(), null === u && (u = i()); null !== u; ) l.push(u), u = p(), 
+      var n, t, l, r, u;
+      if (n = Nu, t = s(), null === t && (t = vt), null !== t) if (l = Nu, le++, r = h(), 
+      le--, null === r ? l = vt : (Nu = l, l = kt), null !== l) {
+        for (r = [], u = p(), null === u && (u = i()); null !== u; ) r.push(u), u = p(), 
         null === u && (u = i());
-        null !== l ? (u = f(), null === u && (u = At), null !== u ? (yu = n, t = wt(t, l, u), 
-        null === t ? (ku = n, n = t) : n = t) : (ku = n, n = vt)) : (ku = n, n = vt);
-      } else ku = n, n = vt; else ku = n, n = vt;
+        null !== r ? (u = f(), null === u && (u = vt), null !== u ? (Vu = n, t = gt(t, r, u), 
+        null === t ? (Nu = n, n = t) : n = t) : (Nu = n, n = kt)) : (Nu = n, n = kt);
+      } else Nu = n, n = kt; else Nu = n, n = kt;
       return n;
     }
     function i() {
       var n;
-      return n = g(), null === n && (n = S(), null === n && (n = E())), n;
+      return n = T(), null === n && (n = S(), null === n && (n = H())), n;
     }
     function s() {
-      var t, r;
-      return t = ku, 94 === n.charCodeAt(ku) ? (r = Tt, ku++) : (r = null, 0 === Ru && e(gt)), 
-      null !== r && (yu = t, r = xt()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, 94 === n.charCodeAt(Nu) ? (l = Tt, Nu++) : (l = null, 0 === le && e(xt)), 
+      null !== l && (Vu = t, l = Rt()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function f() {
-      var t, r;
-      return t = ku, 36 === n.charCodeAt(ku) ? (r = Rt, ku++) : (r = null, 0 === Ru && e(Gt)), 
-      null !== r && (yu = t, r = mt()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, 36 === n.charCodeAt(Nu) ? (l = mt, Nu++) : (l = null, 0 === le && e(Gt)), 
+      null !== l && (Vu = t, l = Ot()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function p() {
-      var n, t, r;
-      return n = ku, t = i(), null !== t ? (r = h(), null !== r ? (yu = n, t = Ot(t, r), 
-      null === t ? (ku = n, n = t) : n = t) : (ku = n, n = vt)) : (ku = n, n = vt), n;
+      var n, t, l;
+      return n = Nu, t = i(), null !== t ? (l = h(), null !== l ? (Vu = n, t = jt(t, l), 
+      null === t ? (Nu = n, n = t) : n = t) : (Nu = n, n = kt)) : (Nu = n, n = kt), n;
     }
     function h() {
-      var n, t, r;
-      return Ru++, n = ku, t = d(), null !== t ? (r = w(), null === r && (r = At), null !== r ? (yu = n, 
-      t = jt(t, r), null === t ? (ku = n, n = t) : n = t) : (ku = n, n = vt)) : (ku = n, 
-      n = vt), Ru--, null === n && (t = null, 0 === Ru && e(Qt)), n;
+      var n, t, l;
+      return le++, n = Nu, t = d(), null !== t ? (l = w(), null === l && (l = vt), null !== l ? (Vu = n, 
+      t = Ft(t, l), null === t ? (Nu = n, n = t) : n = t) : (Nu = n, n = kt)) : (Nu = n, 
+      n = kt), le--, null === n && (t = null, 0 === le && e(Qt)), n;
     }
     function d() {
       var n;
-      return n = C(), null === n && (n = v(), null === n && (n = A(), null === n && (n = b(), 
-      null === n && (n = k(), null === n && (n = y()))))), n;
+      return n = C(), null === n && (n = b(), null === n && (n = k(), null === n && (n = v(), 
+      null === n && (n = A(), null === n && (n = y()))))), n;
     }
     function C() {
-      var t, r, l, u, o, c;
-      return t = ku, 123 === n.charCodeAt(ku) ? (r = Ft, ku++) : (r = null, 0 === Ru && e(St)), 
-      null !== r ? (l = T(), null !== l ? (44 === n.charCodeAt(ku) ? (u = Ut, ku++) : (u = null, 
-      0 === Ru && e(Bt)), null !== u ? (o = T(), null !== o ? (125 === n.charCodeAt(ku) ? (c = Lt, 
-      ku++) : (c = null, 0 === Ru && e(Mt)), null !== c ? (yu = t, r = Et(l, o), null === r ? (ku = t, 
-      t = r) : t = r) : (ku = t, t = vt)) : (ku = t, t = vt)) : (ku = t, t = vt)) : (ku = t, 
-      t = vt)) : (ku = t, t = vt), t;
-    }
-    function v() {
-      var t, r, l, u;
-      return t = ku, 123 === n.charCodeAt(ku) ? (r = Ft, ku++) : (r = null, 0 === Ru && e(St)), 
-      null !== r ? (l = T(), null !== l ? (n.substr(ku, 2) === Ht ? (u = Ht, ku += 2) : (u = null, 
-      0 === Ru && e(zt)), null !== u ? (yu = t, r = Zt(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-      t = vt)) : (ku = t, t = vt)) : (ku = t, t = vt), t;
-    }
-    function A() {
-      var t, r, l, u;
-      return t = ku, 123 === n.charCodeAt(ku) ? (r = Ft, ku++) : (r = null, 0 === Ru && e(St)), 
-      null !== r ? (l = T(), null !== l ? (125 === n.charCodeAt(ku) ? (u = Lt, ku++) : (u = null, 
-      0 === Ru && e(Mt)), null !== u ? (yu = t, r = $t(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-      t = vt)) : (ku = t, t = vt)) : (ku = t, t = vt), t;
+      var t, l, r, u, o, c;
+      return t = Nu, 123 === n.charCodeAt(Nu) ? (l = St, Nu++) : (l = null, 0 === le && e(Ut)), 
+      null !== l ? (r = g(), null !== r ? (44 === n.charCodeAt(Nu) ? (u = Bt, Nu++) : (u = null, 
+      0 === le && e(Lt)), null !== u ? (o = g(), null !== o ? (125 === n.charCodeAt(Nu) ? (c = Mt, 
+      Nu++) : (c = null, 0 === le && e(Et)), null !== c ? (Vu = t, l = Ht(r, o), null === l ? (Nu = t, 
+      t = l) : t = l) : (Nu = t, t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt)) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt), t;
     }
     function b() {
-      var t, r;
-      return t = ku, 43 === n.charCodeAt(ku) ? (r = _t, ku++) : (r = null, 0 === Ru && e(qt)), 
-      null !== r && (yu = t, r = Dt()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l, r, u;
+      return t = Nu, 123 === n.charCodeAt(Nu) ? (l = St, Nu++) : (l = null, 0 === le && e(Ut)), 
+      null !== l ? (r = g(), null !== r ? (n.substr(Nu, 2) === zt ? (u = zt, Nu += 2) : (u = null, 
+      0 === le && e(Zt)), null !== u ? (Vu = t, l = $t(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt), t;
     }
     function k() {
-      var t, r;
-      return t = ku, 42 === n.charCodeAt(ku) ? (r = Pt, ku++) : (r = null, 0 === Ru && e(Wt)), 
-      null !== r && (yu = t, r = It()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l, r, u;
+      return t = Nu, 123 === n.charCodeAt(Nu) ? (l = St, Nu++) : (l = null, 0 === le && e(Ut)), 
+      null !== l ? (r = g(), null !== r ? (125 === n.charCodeAt(Nu) ? (u = Mt, Nu++) : (u = null, 
+      0 === le && e(Et)), null !== u ? (Vu = t, l = _t(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt), t;
+    }
+    function v() {
+      var t, l;
+      return t = Nu, 43 === n.charCodeAt(Nu) ? (l = qt, Nu++) : (l = null, 0 === le && e(Dt)), 
+      null !== l && (Vu = t, l = Pt()), null === l ? (Nu = t, t = l) : t = l, t;
+    }
+    function A() {
+      var t, l;
+      return t = Nu, 42 === n.charCodeAt(Nu) ? (l = Wt, Nu++) : (l = null, 0 === le && e(It)), 
+      null !== l && (Vu = t, l = Jt()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function y() {
-      var t, r;
-      return t = ku, 63 === n.charCodeAt(ku) ? (r = Jt, ku++) : (r = null, 0 === Ru && e(Kt)), 
-      null !== r && (yu = t, r = Nt()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, 63 === n.charCodeAt(Nu) ? (l = Kt, Nu++) : (l = null, 0 === le && e(Nt)), 
+      null !== l && (Vu = t, l = Vt()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function w() {
       var t;
-      return 63 === n.charCodeAt(ku) ? (t = Jt, ku++) : (t = null, 0 === Ru && e(Kt)), 
-      t;
-    }
-    function T() {
-      var t, r, l;
-      if (t = ku, r = [], Vt.test(n.charAt(ku)) ? (l = n.charAt(ku), ku++) : (l = null, 
-      0 === Ru && e(Xt)), null !== l) for (;null !== l; ) r.push(l), Vt.test(n.charAt(ku)) ? (l = n.charAt(ku), 
-      ku++) : (l = null, 0 === Ru && e(Xt)); else r = vt;
-      return null !== r && (yu = t, r = Yt(r)), null === r ? (ku = t, t = r) : t = r, 
+      return 63 === n.charCodeAt(Nu) ? (t = Kt, Nu++) : (t = null, 0 === le && e(Nt)), 
       t;
     }
     function g() {
-      var t, r, l, u;
-      return t = ku, 40 === n.charCodeAt(ku) ? (r = nr, ku++) : (r = null, 0 === Ru && e(tr)), 
-      null !== r ? (l = G(), null === l && (l = m(), null === l && (l = O(), null === l && (l = Q(), 
-      null === l && (l = j(), null === l && (l = R(), null === l && (l = x())))))), null !== l ? (41 === n.charCodeAt(ku) ? (u = rr, 
-      ku++) : (u = null, 0 === Ru && e(lr)), null !== u ? (yu = t, r = ur(l), null === r ? (ku = t, 
-      t = r) : t = r) : (ku = t, t = vt)) : (ku = t, t = vt)) : (ku = t, t = vt), t;
+      var t, l, r;
+      if (t = Nu, l = [], Xt.test(n.charAt(Nu)) ? (r = n.charAt(Nu), Nu++) : (r = null, 
+      0 === le && e(Yt)), null !== r) for (;null !== r; ) l.push(r), Xt.test(n.charAt(Nu)) ? (r = n.charAt(Nu), 
+      Nu++) : (r = null, 0 === le && e(Yt)); else l = kt;
+      return null !== l && (Vu = t, l = nl(l)), null === l ? (Nu = t, t = l) : t = l, 
+      t;
+    }
+    function T() {
+      var t, l, r, u;
+      return t = Nu, 40 === n.charCodeAt(Nu) ? (l = tl, Nu++) : (l = null, 0 === le && e(ll)), 
+      null !== l ? (r = m(), null === r && (r = G(), null === r && (r = O(), null === r && (r = j(), 
+      null === r && (r = Q(), null === r && (r = R(), null === r && (r = x())))))), null !== r ? (41 === n.charCodeAt(Nu) ? (u = rl, 
+      Nu++) : (u = null, 0 === le && e(ul)), null !== u ? (Vu = t, l = el(r), null === l ? (Nu = t, 
+      t = l) : t = l) : (Nu = t, t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt), t;
     }
     function x() {
       var n, t;
-      return n = ku, t = c(), null !== t && (yu = n, t = er(t)), null === t ? (ku = n, 
+      return n = Nu, t = c(), null !== t && (Vu = n, t = ol(t)), null === t ? (Nu = n, 
       n = t) : n = t, n;
     }
     function R() {
-      var t, r, l;
-      return t = ku, n.substr(ku, 2) === or ? (r = or, ku += 2) : (r = null, 0 === Ru && e(cr)), 
-      null !== r ? (l = c(), null !== l ? (yu = t, r = ar(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-      t = vt)) : (ku = t, t = vt), t;
-    }
-    function G() {
-      var t, r, l;
-      return t = ku, n.substr(ku, 2) === ir ? (r = ir, ku += 2) : (r = null, 0 === Ru && e(sr)), 
-      null !== r ? (l = c(), null !== l ? (yu = t, r = fr(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-      t = vt)) : (ku = t, t = vt), t;
+      var t, l, r;
+      return t = Nu, n.substr(Nu, 2) === cl ? (l = cl, Nu += 2) : (l = null, 0 === le && e(al)), 
+      null !== l ? (r = c(), null !== r ? (Vu = t, l = il(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt), t;
     }
     function m() {
-      var t, r, l;
-      return t = ku, n.substr(ku, 2) === pr ? (r = pr, ku += 2) : (r = null, 0 === Ru && e(hr)), 
-      null !== r ? (l = c(), null !== l ? (yu = t, r = dr(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-      t = vt)) : (ku = t, t = vt), t;
+      var t, l, r;
+      return t = Nu, n.substr(Nu, 2) === sl ? (l = sl, Nu += 2) : (l = null, 0 === le && e(fl)), 
+      null !== l ? (r = c(), null !== r ? (Vu = t, l = pl(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt), t;
+    }
+    function G() {
+      var t, l, r;
+      return t = Nu, n.substr(Nu, 2) === hl ? (l = hl, Nu += 2) : (l = null, 0 === le && e(dl)), 
+      null !== l ? (r = c(), null !== r ? (Vu = t, l = Cl(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt), t;
     }
     function O() {
-      var t, r, l;
-      return t = ku, n.substr(ku, 3) === Cr ? (r = Cr, ku += 3) : (r = null, 0 === Ru && e(vr)), 
-      null !== r ? (l = c(), null !== l ? (yu = t, r = Ar(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-      t = vt)) : (ku = t, t = vt), t;
-    }
-    function Q() {
-      var t, r, l;
-      return t = ku, n.substr(ku, 3) === br ? (r = br, ku += 3) : (r = null, 0 === Ru && e(kr)), 
-      null !== r ? (l = c(), null !== l ? (yu = t, r = yr(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-      t = vt)) : (ku = t, t = vt), t;
+      var t, l, r;
+      return t = Nu, n.substr(Nu, 3) === bl ? (l = bl, Nu += 3) : (l = null, 0 === le && e(kl)), 
+      null !== l ? (r = c(), null !== r ? (Vu = t, l = vl(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt), t;
     }
     function j() {
-      var t, r, l, u, o, a;
-      if (t = ku, r = F(), null !== r) {
-        if (l = ku, wr.test(n.charAt(ku)) ? (u = n.charAt(ku), ku++) : (u = null, 0 === Ru && e(Tr)), 
+      var t, l, r;
+      return t = Nu, n.substr(Nu, 3) === Al ? (l = Al, Nu += 3) : (l = null, 0 === le && e(yl)), 
+      null !== l ? (r = c(), null !== r ? (Vu = t, l = wl(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt), t;
+    }
+    function Q() {
+      var t, l, r, u, o, a;
+      if (t = Nu, l = F(), null !== l) {
+        if (r = Nu, gl.test(n.charAt(Nu)) ? (u = n.charAt(Nu), Nu++) : (u = null, 0 === le && e(Tl)), 
         null !== u) {
-          for (o = [], gr.test(n.charAt(ku)) ? (a = n.charAt(ku), ku++) : (a = null, 0 === Ru && e(xr)); null !== a; ) o.push(a), 
-          gr.test(n.charAt(ku)) ? (a = n.charAt(ku), ku++) : (a = null, 0 === Ru && e(xr));
-          null !== o ? (u = [ u, o ], l = u) : (ku = l, l = vt);
-        } else ku = l, l = vt;
-        null !== l ? (62 === n.charCodeAt(ku) ? (u = Rr, ku++) : (u = null, 0 === Ru && e(Gr)), 
-        null !== u ? (o = c(), null !== o ? (yu = t, r = mr(l, o), null === r ? (ku = t, 
-        t = r) : t = r) : (ku = t, t = vt)) : (ku = t, t = vt)) : (ku = t, t = vt);
-      } else ku = t, t = vt;
+          for (o = [], xl.test(n.charAt(Nu)) ? (a = n.charAt(Nu), Nu++) : (a = null, 0 === le && e(Rl)); null !== a; ) o.push(a), 
+          xl.test(n.charAt(Nu)) ? (a = n.charAt(Nu), Nu++) : (a = null, 0 === le && e(Rl));
+          null !== o ? (u = [ u, o ], r = u) : (Nu = r, r = kt);
+        } else Nu = r, r = kt;
+        null !== r ? (62 === n.charCodeAt(Nu) ? (u = ml, Nu++) : (u = null, 0 === le && e(Gl)), 
+        null !== u ? (o = c(), null !== o ? (Vu = t, l = Ol(r, o), null === l ? (Nu = t, 
+        t = l) : t = l) : (Nu = t, t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt);
+      } else Nu = t, t = kt;
       return t;
     }
     function F() {
       var t;
-      return n.substr(ku, 3) === Or ? (t = Or, ku += 3) : (t = null, 0 === Ru && e(Qr)), 
-      null === t && (n.substr(ku, 2) === jr ? (t = jr, ku += 2) : (t = null, 0 === Ru && e(Fr))), 
+      return n.substr(Nu, 3) === jl ? (t = jl, Nu += 3) : (t = null, 0 === le && e(Ql)), 
+      null === t && (n.substr(Nu, 2) === Fl ? (t = Fl, Nu += 2) : (t = null, 0 === le && e(Sl))), 
       t;
     }
     function S() {
-      var t, r, l, u, o;
-      if (Ru++, t = ku, 91 === n.charCodeAt(ku) ? (r = Ur, ku++) : (r = null, 0 === Ru && e(Br)), 
-      null !== r) if (94 === n.charCodeAt(ku) ? (l = Tt, ku++) : (l = null, 0 === Ru && e(gt)), 
-      null === l && (l = At), null !== l) {
-        for (u = [], o = U(), null === o && (o = B()); null !== o; ) u.push(o), o = U(), 
-        null === o && (o = B());
-        null !== u ? (93 === n.charCodeAt(ku) ? (o = Lr, ku++) : (o = null, 0 === Ru && e(Mr)), 
-        null !== o ? (yu = t, r = Er(l, u), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-        t = vt)) : (ku = t, t = vt);
-      } else ku = t, t = vt; else ku = t, t = vt;
-      return Ru--, null === t && (r = null, 0 === Ru && e(Sr)), t;
+      var t, l, r, u, o;
+      if (le++, t = Nu, 91 === n.charCodeAt(Nu) ? (l = Bl, Nu++) : (l = null, 0 === le && e(Ll)), 
+      null !== l) if (94 === n.charCodeAt(Nu) ? (r = Tt, Nu++) : (r = null, 0 === le && e(xt)), 
+      null === r && (r = vt), null !== r) {
+        for (u = [], o = U(), null === o && (o = L(), null === o && (o = B())); null !== o; ) u.push(o), 
+        o = U(), null === o && (o = L(), null === o && (o = B()));
+        null !== u ? (93 === n.charCodeAt(Nu) ? (o = Ml, Nu++) : (o = null, 0 === le && e(El)), 
+        null !== o ? (Vu = t, l = Hl(r, u), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+        t = kt)) : (Nu = t, t = kt);
+      } else Nu = t, t = kt; else Nu = t, t = kt;
+      return le--, null === t && (l = null, 0 === le && e(Ul)), t;
     }
     function U() {
-      var t, r, l, u;
-      return Ru++, t = ku, r = B(), null !== r ? (45 === n.charCodeAt(ku) ? (l = zr, ku++) : (l = null, 
-      0 === Ru && e(Zr)), null !== l ? (u = B(), null !== u ? (yu = t, r = $r(r, u), null === r ? (ku = t, 
-      t = r) : t = r) : (ku = t, t = vt)) : (ku = t, t = vt)) : (ku = t, t = vt), Ru--, 
-      null === t && (r = null, 0 === Ru && e(Hr)), t;
+      var t, l, r, u;
+      return le++, t = Nu, l = L(), null !== l ? (45 === n.charCodeAt(Nu) ? (r = Zl, Nu++) : (r = null, 
+      0 === le && e($l)), null !== r ? (u = L(), null !== u ? (Vu = t, l = _l(l, u), null === l ? (Nu = t, 
+      t = l) : t = l) : (Nu = t, t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt), le--, 
+      null === t && (l = null, 0 === le && e(zl)), t;
     }
     function B() {
-      var n, t;
-      return Ru++, n = M(), null === n && (n = L()), Ru--, null === n && (t = null, 0 === Ru && e(_r)), 
-      n;
+      var t, l, r, u;
+      return le++, t = Nu, n.substr(Nu, 2) === Dl ? (l = Dl, Nu += 2) : (l = null, 0 === le && e(Pl)), 
+      null !== l ? (n.substr(Nu, 5) === Wl ? (r = Wl, Nu += 5) : (r = null, 0 === le && e(Il)), 
+      null === r && (n.substr(Nu, 5) === Jl ? (r = Jl, Nu += 5) : (r = null, 0 === le && e(Kl)), 
+      null === r && (n.substr(Nu, 5) === Nl ? (r = Nl, Nu += 5) : (r = null, 0 === le && e(Vl)), 
+      null === r && (n.substr(Nu, 5) === Xl ? (r = Xl, Nu += 5) : (r = null, 0 === le && e(Yl)), 
+      null === r && (n.substr(Nu, 5) === nr ? (r = nr, Nu += 5) : (r = null, 0 === le && e(tr)), 
+      null === r && (n.substr(Nu, 5) === lr ? (r = lr, Nu += 5) : (r = null, 0 === le && e(rr)), 
+      null === r && (n.substr(Nu, 5) === ur ? (r = ur, Nu += 5) : (r = null, 0 === le && e(er)), 
+      null === r && (n.substr(Nu, 5) === or ? (r = or, Nu += 5) : (r = null, 0 === le && e(cr)), 
+      null === r && (n.substr(Nu, 5) === ar ? (r = ar, Nu += 5) : (r = null, 0 === le && e(ir)), 
+      null === r && (n.substr(Nu, 5) === sr ? (r = sr, Nu += 5) : (r = null, 0 === le && e(fr)), 
+      null === r && (n.substr(Nu, 5) === pr ? (r = pr, Nu += 5) : (r = null, 0 === le && e(hr)), 
+      null === r && (n.substr(Nu, 6) === dr ? (r = dr, Nu += 6) : (r = null, 0 === le && e(Cr))))))))))))), 
+      null !== r ? (n.substr(Nu, 2) === br ? (u = br, Nu += 2) : (u = null, 0 === le && e(kr)), 
+      null !== u ? (Vu = t, l = vr(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt), le--, null === t && (l = null, 
+      0 === le && e(ql)), t;
     }
     function L() {
-      var t, r;
-      return t = ku, qr.test(n.charAt(ku)) ? (r = n.charAt(ku), ku++) : (r = null, 0 === Ru && e(Dr)), 
-      null !== r && (yu = t, r = Pr(r)), null === r ? (ku = t, t = r) : t = r, t;
+      var n, t;
+      return le++, n = E(), null === n && (n = M()), le--, null === n && (t = null, 0 === le && e(Ar)), 
+      n;
     }
     function M() {
-      var n;
-      return n = $(), null === n && (n = et(), null === n && (n = J(), null === n && (n = K(), 
-      null === n && (n = N(), null === n && (n = V(), null === n && (n = X(), null === n && (n = Y(), 
-      null === n && (n = nt(), null === n && (n = tt(), null === n && (n = rt(), null === n && (n = lt(), 
-      null === n && (n = ut(), null === n && (n = ct(), null === n && (n = at(), null === n && (n = it(), 
-      null === n && (n = st(), null === n && (n = ft()))))))))))))))))), n;
+      var t, l;
+      return t = Nu, yr.test(n.charAt(Nu)) ? (l = n.charAt(Nu), Nu++) : (l = null, 0 === le && e(wr)), 
+      null !== l && (Vu = t, l = gr(l)), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function E() {
       var n;
-      return n = H(), null === n && (n = Z(), null === n && (n = z())), n;
+      return n = _(), null === n && (n = ot(), null === n && (n = K(), null === n && (n = N(), 
+      null === n && (n = V(), null === n && (n = X(), null === n && (n = Y(), null === n && (n = nt(), 
+      null === n && (n = tt(), null === n && (n = lt(), null === n && (n = rt(), null === n && (n = ut(), 
+      null === n && (n = et(), null === n && (n = at(), null === n && (n = it(), null === n && (n = st(), 
+      null === n && (n = ft(), null === n && (n = pt()))))))))))))))))), n;
     }
     function H() {
-      var t, r;
-      return t = ku, 46 === n.charCodeAt(ku) ? (r = Wr, ku++) : (r = null, 0 === Ru && e(Ir)), 
-      null !== r && (yu = t, r = Jr()), null === r ? (ku = t, t = r) : t = r, t;
+      var n;
+      return n = z(), null === n && (n = $(), null === n && (n = Z())), n;
     }
     function z() {
-      var t, r;
-      return Ru++, t = ku, Nr.test(n.charAt(ku)) ? (r = n.charAt(ku), ku++) : (r = null, 
-      0 === Ru && e(Vr)), null !== r && (yu = t, r = Pr(r)), null === r ? (ku = t, t = r) : t = r, 
-      Ru--, null === t && (r = null, 0 === Ru && e(Kr)), t;
+      var t, l;
+      return t = Nu, 46 === n.charCodeAt(Nu) ? (l = Tr, Nu++) : (l = null, 0 === le && e(xr)), 
+      null !== l && (Vu = t, l = Rr()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function Z() {
-      var n;
-      return n = _(), null === n && (n = I(), null === n && (n = q(), null === n && (n = D(), 
-      null === n && (n = P(), null === n && (n = W(), null === n && (n = et(), null === n && (n = J(), 
-      null === n && (n = K(), null === n && (n = N(), null === n && (n = V(), null === n && (n = X(), 
-      null === n && (n = Y(), null === n && (n = nt(), null === n && (n = tt(), null === n && (n = rt(), 
-      null === n && (n = lt(), null === n && (n = ut(), null === n && (n = ot(), null === n && (n = ct(), 
-      null === n && (n = at(), null === n && (n = it(), null === n && (n = st(), null === n && (n = ft()))))))))))))))))))))))), 
-      n;
+      var t, l;
+      return le++, t = Nu, Gr.test(n.charAt(Nu)) ? (l = n.charAt(Nu), Nu++) : (l = null, 
+      0 === le && e(Or)), null !== l && (Vu = t, l = gr(l)), null === l ? (Nu = t, t = l) : t = l, 
+      le--, null === t && (l = null, 0 === le && e(mr)), t;
     }
     function $() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === Xr ? (r = Xr, ku += 2) : (r = null, 0 === Ru && e(Yr)), 
-      null !== r && (yu = t, r = nl()), null === r ? (ku = t, t = r) : t = r, t;
+      var n;
+      return n = q(), null === n && (n = J(), null === n && (n = D(), null === n && (n = P(), 
+      null === n && (n = W(), null === n && (n = I(), null === n && (n = ot(), null === n && (n = K(), 
+      null === n && (n = N(), null === n && (n = V(), null === n && (n = X(), null === n && (n = Y(), 
+      null === n && (n = nt(), null === n && (n = tt(), null === n && (n = lt(), null === n && (n = rt(), 
+      null === n && (n = ut(), null === n && (n = et(), null === n && (n = ct(), null === n && (n = at(), 
+      null === n && (n = it(), null === n && (n = st(), null === n && (n = ft(), null === n && (n = pt()))))))))))))))))))))))), 
+      n;
     }
     function _() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === Xr ? (r = Xr, ku += 2) : (r = null, 0 === Ru && e(Yr)), 
-      null !== r && (yu = t, r = tl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === jr ? (l = jr, Nu += 2) : (l = null, 0 === le && e(Qr)), 
+      null !== l && (Vu = t, l = Fr()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function q() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === rl ? (r = rl, ku += 2) : (r = null, 0 === Ru && e(ll)), 
-      null !== r && (yu = t, r = ul()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === jr ? (l = jr, Nu += 2) : (l = null, 0 === le && e(Qr)), 
+      null !== l && (Vu = t, l = Sr()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function D() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === el ? (r = el, ku += 2) : (r = null, 0 === Ru && e(ol)), 
-      null !== r && (yu = t, r = cl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === Ur ? (l = Ur, Nu += 2) : (l = null, 0 === le && e(Br)), 
+      null !== l && (Vu = t, l = Lr()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function P() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === al ? (r = al, ku += 2) : (r = null, 0 === Ru && e(il)), 
-      null !== r && (yu = t, r = sl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === Mr ? (l = Mr, Nu += 2) : (l = null, 0 === le && e(Er)), 
+      null !== l && (Vu = t, l = Hr()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function W() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === fl ? (r = fl, ku += 2) : (r = null, 0 === Ru && e(pl)), 
-      null !== r && (yu = t, r = hl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === zr ? (l = zr, Nu += 2) : (l = null, 0 === le && e(Zr)), 
+      null !== l && (Vu = t, l = $r()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function I() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === dl ? (r = dl, ku += 2) : (r = null, 0 === Ru && e(Cl)), 
-      null !== r && (yu = t, r = vl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === _r ? (l = _r, Nu += 2) : (l = null, 0 === le && e(qr)), 
+      null !== l && (Vu = t, l = Dr()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function J() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === Al ? (r = Al, ku += 2) : (r = null, 0 === Ru && e(bl)), 
-      null !== r && (yu = t, r = kl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === Pr ? (l = Pr, Nu += 2) : (l = null, 0 === le && e(Wr)), 
+      null !== l && (Vu = t, l = Ir()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function K() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === yl ? (r = yl, ku += 2) : (r = null, 0 === Ru && e(wl)), 
-      null !== r && (yu = t, r = Tl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === Jr ? (l = Jr, Nu += 2) : (l = null, 0 === le && e(Kr)), 
+      null !== l && (Vu = t, l = Nr()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function N() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === gl ? (r = gl, ku += 2) : (r = null, 0 === Ru && e(xl)), 
-      null !== r && (yu = t, r = Rl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === Vr ? (l = Vr, Nu += 2) : (l = null, 0 === le && e(Xr)), 
+      null !== l && (Vu = t, l = Yr()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function V() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === Gl ? (r = Gl, ku += 2) : (r = null, 0 === Ru && e(ml)), 
-      null !== r && (yu = t, r = Ol()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === nu ? (l = nu, Nu += 2) : (l = null, 0 === le && e(tu)), 
+      null !== l && (Vu = t, l = lu()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function X() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === Ql ? (r = Ql, ku += 2) : (r = null, 0 === Ru && e(jl)), 
-      null !== r && (yu = t, r = Fl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === ru ? (l = ru, Nu += 2) : (l = null, 0 === le && e(uu)), 
+      null !== l && (Vu = t, l = eu()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function Y() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === Sl ? (r = Sl, ku += 2) : (r = null, 0 === Ru && e(Ul)), 
-      null !== r && (yu = t, r = Bl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === ou ? (l = ou, Nu += 2) : (l = null, 0 === le && e(cu)), 
+      null !== l && (Vu = t, l = au()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function nt() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === Ll ? (r = Ll, ku += 2) : (r = null, 0 === Ru && e(Ml)), 
-      null !== r && (yu = t, r = El()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === iu ? (l = iu, Nu += 2) : (l = null, 0 === le && e(su)), 
+      null !== l && (Vu = t, l = fu()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function tt() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === Hl ? (r = Hl, ku += 2) : (r = null, 0 === Ru && e(zl)), 
-      null !== r && (yu = t, r = Zl()), null === r ? (ku = t, t = r) : t = r, t;
-    }
-    function rt() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === $l ? (r = $l, ku += 2) : (r = null, 0 === Ru && e(_l)), 
-      null !== r && (yu = t, r = ql()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === pu ? (l = pu, Nu += 2) : (l = null, 0 === le && e(hu)), 
+      null !== l && (Vu = t, l = du()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function lt() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === Dl ? (r = Dl, ku += 2) : (r = null, 0 === Ru && e(Pl)), 
-      null !== r && (yu = t, r = Wl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === Cu ? (l = Cu, Nu += 2) : (l = null, 0 === le && e(bu)), 
+      null !== l && (Vu = t, l = ku()), null === l ? (Nu = t, t = l) : t = l, t;
+    }
+    function rt() {
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === vu ? (l = vu, Nu += 2) : (l = null, 0 === le && e(Au)), 
+      null !== l && (Vu = t, l = yu()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function ut() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === Il ? (r = Il, ku += 2) : (r = null, 0 === Ru && e(Jl)), 
-      null !== r && (yu = t, r = Kl()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === wu ? (l = wu, Nu += 2) : (l = null, 0 === le && e(gu)), 
+      null !== l && (Vu = t, l = Tu()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function et() {
-      var t, r, l;
-      return t = ku, n.substr(ku, 2) === Nl ? (r = Nl, ku += 2) : (r = null, 0 === Ru && e(Vl)), 
-      null !== r ? (n.length > ku ? (l = n.charAt(ku), ku++) : (l = null, 0 === Ru && e(Xl)), 
-      null !== l ? (yu = t, r = Yl(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-      t = vt)) : (ku = t, t = vt), t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === xu ? (l = xu, Nu += 2) : (l = null, 0 === le && e(Ru)), 
+      null !== l && (Vu = t, l = mu()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function ot() {
-      var t, r, l;
-      return t = ku, 92 === n.charCodeAt(ku) ? (r = nu, ku++) : (r = null, 0 === Ru && e(tu)), 
-      null !== r ? (ru.test(n.charAt(ku)) ? (l = n.charAt(ku), ku++) : (l = null, 0 === Ru && e(lu)), 
-      null !== l ? (yu = t, r = uu(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-      t = vt)) : (ku = t, t = vt), t;
+      var t, l, r;
+      return t = Nu, n.substr(Nu, 2) === Gu ? (l = Gu, Nu += 2) : (l = null, 0 === le && e(Ou)), 
+      null !== l ? (n.length > Nu ? (r = n.charAt(Nu), Nu++) : (r = null, 0 === le && e(ju)), 
+      null !== r ? (Vu = t, l = Qu(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt), t;
     }
     function ct() {
-      var t, r, l, u;
-      if (t = ku, n.substr(ku, 2) === eu ? (r = eu, ku += 2) : (r = null, 0 === Ru && e(ou)), 
-      null !== r) {
-        if (l = [], cu.test(n.charAt(ku)) ? (u = n.charAt(ku), ku++) : (u = null, 0 === Ru && e(au)), 
-        null !== u) for (;null !== u; ) l.push(u), cu.test(n.charAt(ku)) ? (u = n.charAt(ku), 
-        ku++) : (u = null, 0 === Ru && e(au)); else l = vt;
-        null !== l ? (yu = t, r = iu(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-        t = vt);
-      } else ku = t, t = vt;
-      return t;
+      var t, l, r;
+      return t = Nu, 92 === n.charCodeAt(Nu) ? (l = Fu, Nu++) : (l = null, 0 === le && e(Su)), 
+      null !== l ? (Uu.test(n.charAt(Nu)) ? (r = n.charAt(Nu), Nu++) : (r = null, 0 === le && e(Bu)), 
+      null !== r ? (Vu = t, l = Lu(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt), t;
     }
     function at() {
-      var t, r, l, u;
-      if (t = ku, n.substr(ku, 2) === su ? (r = su, ku += 2) : (r = null, 0 === Ru && e(fu)), 
-      null !== r) {
-        if (l = [], pu.test(n.charAt(ku)) ? (u = n.charAt(ku), ku++) : (u = null, 0 === Ru && e(hu)), 
-        null !== u) for (;null !== u; ) l.push(u), pu.test(n.charAt(ku)) ? (u = n.charAt(ku), 
-        ku++) : (u = null, 0 === Ru && e(hu)); else l = vt;
-        null !== l ? (yu = t, r = du(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-        t = vt);
-      } else ku = t, t = vt;
+      var t, l, r, u;
+      if (t = Nu, n.substr(Nu, 2) === Mu ? (l = Mu, Nu += 2) : (l = null, 0 === le && e(Eu)), 
+      null !== l) {
+        if (r = [], Hu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), Nu++) : (u = null, 0 === le && e(zu)), 
+        null !== u) for (;null !== u; ) r.push(u), Hu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), 
+        Nu++) : (u = null, 0 === le && e(zu)); else r = kt;
+        null !== r ? (Vu = t, l = Zu(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+        t = kt);
+      } else Nu = t, t = kt;
       return t;
     }
     function it() {
-      var t, r, l, u;
-      if (t = ku, n.substr(ku, 2) === Cu ? (r = Cu, ku += 2) : (r = null, 0 === Ru && e(vu)), 
-      null !== r) {
-        if (l = [], pu.test(n.charAt(ku)) ? (u = n.charAt(ku), ku++) : (u = null, 0 === Ru && e(hu)), 
-        null !== u) for (;null !== u; ) l.push(u), pu.test(n.charAt(ku)) ? (u = n.charAt(ku), 
-        ku++) : (u = null, 0 === Ru && e(hu)); else l = vt;
-        null !== l ? (yu = t, r = Au(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-        t = vt);
-      } else ku = t, t = vt;
+      var t, l, r, u;
+      if (t = Nu, n.substr(Nu, 2) === $u ? (l = $u, Nu += 2) : (l = null, 0 === le && e(_u)), 
+      null !== l) {
+        if (r = [], qu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), Nu++) : (u = null, 0 === le && e(Du)), 
+        null !== u) for (;null !== u; ) r.push(u), qu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), 
+        Nu++) : (u = null, 0 === le && e(Du)); else r = kt;
+        null !== r ? (Vu = t, l = Pu(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+        t = kt);
+      } else Nu = t, t = kt;
       return t;
     }
     function st() {
-      var t, r;
-      return t = ku, n.substr(ku, 2) === eu ? (r = eu, ku += 2) : (r = null, 0 === Ru && e(ou)), 
-      null !== r && (yu = t, r = bu()), null === r ? (ku = t, t = r) : t = r, t;
+      var t, l, r, u;
+      if (t = Nu, n.substr(Nu, 2) === Wu ? (l = Wu, Nu += 2) : (l = null, 0 === le && e(Iu)), 
+      null !== l) {
+        if (r = [], qu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), Nu++) : (u = null, 0 === le && e(Du)), 
+        null !== u) for (;null !== u; ) r.push(u), qu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), 
+        Nu++) : (u = null, 0 === le && e(Du)); else r = kt;
+        null !== r ? (Vu = t, l = Ju(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+        t = kt);
+      } else Nu = t, t = kt;
+      return t;
     }
     function ft() {
-      var t, r, l;
-      return t = ku, 92 === n.charCodeAt(ku) ? (r = nu, ku++) : (r = null, 0 === Ru && e(tu)), 
-      null !== r ? (n.length > ku ? (l = n.charAt(ku), ku++) : (l = null, 0 === Ru && e(Xl)), 
-      null !== l ? (yu = t, r = Pr(l), null === r ? (ku = t, t = r) : t = r) : (ku = t, 
-      t = vt)) : (ku = t, t = vt), t;
+      var t, l;
+      return t = Nu, n.substr(Nu, 2) === Mu ? (l = Mu, Nu += 2) : (l = null, 0 === le && e(Eu)), 
+      null !== l && (Vu = t, l = Ku()), null === l ? (Nu = t, t = l) : t = l, t;
     }
-    var pt, ht = arguments.length > 1 ? arguments[1] : {}, dt = {
+    function pt() {
+      var t, l, r;
+      return t = Nu, 92 === n.charCodeAt(Nu) ? (l = Fu, Nu++) : (l = null, 0 === le && e(Su)), 
+      null !== l ? (n.length > Nu ? (r = n.charAt(Nu), Nu++) : (r = null, 0 === le && e(ju)), 
+      null !== r ? (Vu = t, l = gr(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = kt)) : (Nu = t, t = kt), t;
+    }
+    var ht, dt = arguments.length > 1 ? arguments[1] : {}, Ct = {
       regexp: c
-    }, Ct = c, vt = null, At = "", bt = "|", kt = '"|"', yt = function(n, t) {
+    }, bt = c, kt = null, vt = "", At = "|", yt = '"|"', wt = function(n, t) {
       return t ? new Alternate(n, t[1]) : n;
-    }, wt = function(n, t, r) {
-      return new Match([ n ].concat(t).concat([ r ]));
-    }, Tt = "^", gt = '"^"', xt = function() {
+    }, gt = function(n, t, l) {
+      return new Match([ n ].concat(t).concat([ l ]));
+    }, Tt = "^", xt = '"^"', Rt = function() {
       return new Token("start");
-    }, Rt = "$", Gt = '"$"', mt = function() {
+    }, mt = "$", Gt = '"$"', Ot = function() {
       return new Token("end");
-    }, Ot = function(n, t) {
+    }, jt = function(n, t) {
       return new Quantified(n, t);
-    }, Qt = "Quantifier", jt = function(n, t) {
+    }, Qt = "Quantifier", Ft = function(n, t) {
       return t && (n.greedy = !1), n;
-    }, Ft = "{", St = '"{"', Ut = ",", Bt = '","', Lt = "}", Mt = '"}"', Et = function(n, t) {
+    }, St = "{", Ut = '"{"', Bt = ",", Lt = '","', Mt = "}", Et = '"}"', Ht = function(n, t) {
       return new Quantifier(n, t);
-    }, Ht = ",}", zt = '",}"', Zt = function(n) {
+    }, zt = ",}", Zt = '",}"', $t = function(n) {
       return new Quantifier(n, 1/0);
-    }, $t = function(n) {
+    }, _t = function(n) {
       return new Quantifier(n, n);
-    }, _t = "+", qt = '"+"', Dt = function() {
+    }, qt = "+", Dt = '"+"', Pt = function() {
       return new Quantifier(1, 1/0);
-    }, Pt = "*", Wt = '"*"', It = function() {
+    }, Wt = "*", It = '"*"', Jt = function() {
       return new Quantifier(0, 1/0);
-    }, Jt = "?", Kt = '"?"', Nt = function() {
+    }, Kt = "?", Nt = '"?"', Vt = function() {
       return new Quantifier(0, 1);
-    }, Vt = /^[0-9]/, Xt = "[0-9]", Yt = function(n) {
+    }, Xt = /^[0-9]/, Yt = "[0-9]", nl = function(n) {
       return +n.join("");
-    }, nr = "(", tr = '"("', rr = ")", lr = '")"', ur = function(n) {
+    }, tl = "(", ll = '"("', rl = ")", ul = '")"', el = function(n) {
       return n;
-    }, er = function(n) {
+    }, ol = function(n) {
       return new CaptureGroup(n);
-    }, or = "?:", cr = '"?:"', ar = function(n) {
+    }, cl = "?:", al = '"?:"', il = function(n) {
       return new Group("non-capture-group", n);
-    }, ir = "?=", sr = '"?="', fr = function(n) {
+    }, sl = "?=", fl = '"?="', pl = function(n) {
       return new Group("positive-lookahead", n);
-    }, pr = "?!", hr = '"?!"', dr = function(n) {
+    }, hl = "?!", dl = '"?!"', Cl = function(n) {
       return new Group("negative-lookahead", n);
-    }, Cr = "?<=", vr = '"?<="', Ar = function(n) {
+    }, bl = "?<=", kl = '"?<="', vl = function(n) {
       return new Group("positive-lookbehind", n);
-    }, br = "?<!", kr = '"?<!"', yr = function(n) {
+    }, Al = "?<!", yl = '"?<!"', wl = function(n) {
       return new Group("negative-lookbehind", n);
-    }, wr = /^[A-Za-z_]/, Tr = "[A-Za-z_]", gr = /^[A-Za-z0-9_]/, xr = "[A-Za-z0-9_]", Rr = ">", Gr = '">"', mr = function(n, t) {
+    }, gl = /^[A-Za-z_]/, Tl = "[A-Za-z_]", xl = /^[A-Za-z0-9_]/, Rl = "[A-Za-z0-9_]", ml = ">", Gl = '">"', Ol = function(n, t) {
       return new CaptureGroup(t, n);
-    }, Or = "?P<", Qr = '"?P<"', jr = "?<", Fr = '"?<"', Sr = "CharacterSet", Ur = "[", Br = '"["', Lr = "]", Mr = '"]"', Er = function(n, t) {
+    }, jl = "?P<", Ql = '"?P<"', Fl = "?<", Sl = '"?<"', Ul = "CharacterSet", Bl = "[", Ll = '"["', Ml = "]", El = '"]"', Hl = function(n, t) {
       return new CharSet(!!n, t);
-    }, Hr = "CharacterRange", zr = "-", Zr = '"-"', $r = function(n, t) {
+    }, zl = "CharacterRange", Zl = "-", $l = '"-"', _l = function(n, t) {
       return new CharacterRange(n, t);
-    }, _r = "Character", qr = /^[^\\\]]/, Dr = "[^\\\\\\]]", Pr = function(n) {
+    }, ql = "CharacterClass", Dl = "[:", Pl = '"[:"', Wl = "alnum", Il = '"alnum"', Jl = "alpha", Kl = '"alpha"', Nl = "blank", Vl = '"blank"', Xl = "cntrl", Yl = '"cntrl"', nr = "digit", tr = '"digit"', lr = "lower", rr = '"lower"', ur = "upper", er = '"upper"', or = "graph", cr = '"graph"', ar = "print", ir = '"print"', sr = "punct", fr = '"punct"', pr = "space", hr = '"space"', dr = "xdigit", Cr = '"xdigit"', br = ":]", kr = '":]"', vr = function(n) {
+      return new CharClass(n);
+    }, Ar = "Character", yr = /^[^\\\]]/, wr = "[^\\\\\\]]", gr = function(n) {
       return new Literal(n);
-    }, Wr = ".", Ir = '"."', Jr = function() {
+    }, Tr = ".", xr = '"."', Rr = function() {
       return new Token("any-character");
-    }, Kr = "Literal", Nr = /^[^|\\.[()?+*$\^]/, Vr = "[^|\\\\.[()?+*$\\^]", Xr = "\\b", Yr = '"\\\\b"', nl = function() {
+    }, mr = "Literal", Gr = /^[^|\\.[()?+*$\^]/, Or = "[^|\\\\.[()?+*$\\^]", jr = "\\b", Qr = '"\\\\b"', Fr = function() {
       return new Token("backspace");
-    }, tl = function() {
+    }, Sr = function() {
       return new Token("word-boundary");
-    }, rl = "\\A", ll = '"\\\\A"', ul = function() {
+    }, Ur = "\\A", Br = '"\\\\A"', Lr = function() {
       return new Token("begin-of-string");
-    }, el = "\\Z", ol = '"\\\\Z"', cl = function() {
+    }, Mr = "\\Z", Er = '"\\\\Z"', Hr = function() {
       return new Token("end-of-string-before-nl");
-    }, al = "\\z", il = '"\\\\z"', sl = function() {
+    }, zr = "\\z", Zr = '"\\\\z"', $r = function() {
       return new Token("end-of-string");
-    }, fl = "\\G", pl = '"\\\\G"', hl = function() {
+    }, _r = "\\G", qr = '"\\\\G"', Dr = function() {
       return new Token("match-start-position");
-    }, dl = "\\B", Cl = '"\\\\B"', vl = function() {
+    }, Pr = "\\B", Wr = '"\\\\B"', Ir = function() {
       return new Token("non-word-boundary");
-    }, Al = "\\d", bl = '"\\\\d"', kl = function() {
+    }, Jr = "\\d", Kr = '"\\\\d"', Nr = function() {
       return new Token("digit");
-    }, yl = "\\D", wl = '"\\\\D"', Tl = function() {
+    }, Vr = "\\D", Xr = '"\\\\D"', Yr = function() {
       return new Token("non-digit");
-    }, gl = "\\f", xl = '"\\\\f"', Rl = function() {
+    }, nu = "\\f", tu = '"\\\\f"', lu = function() {
       return new Token("form-feed");
-    }, Gl = "\\n", ml = '"\\\\n"', Ol = function() {
+    }, ru = "\\n", uu = '"\\\\n"', eu = function() {
       return new Token("line-feed");
-    }, Ql = "\\r", jl = '"\\\\r"', Fl = function() {
+    }, ou = "\\r", cu = '"\\\\r"', au = function() {
       return new Token("carriage-return");
-    }, Sl = "\\s", Ul = '"\\\\s"', Bl = function() {
+    }, iu = "\\s", su = '"\\\\s"', fu = function() {
       return new Token("white-space");
-    }, Ll = "\\S", Ml = '"\\\\S"', El = function() {
+    }, pu = "\\S", hu = '"\\\\S"', du = function() {
       return new Token("non-white-space");
-    }, Hl = "\\t", zl = '"\\\\t"', Zl = function() {
+    }, Cu = "\\t", bu = '"\\\\t"', ku = function() {
       return new Token("tab");
-    }, $l = "\\v", _l = '"\\\\v"', ql = function() {
+    }, vu = "\\v", Au = '"\\\\v"', yu = function() {
       return new Token("vertical-tab");
-    }, Dl = "\\w", Pl = '"\\\\w"', Wl = function() {
+    }, wu = "\\w", gu = '"\\\\w"', Tu = function() {
       return new Token("word");
-    }, Il = "\\W", Jl = '"\\\\W"', Kl = function() {
+    }, xu = "\\W", Ru = '"\\\\W"', mu = function() {
       return new Token("non-word");
-    }, Nl = "\\c", Vl = '"\\\\c"', Xl = "any character", Yl = function(n) {
+    }, Gu = "\\c", Ou = '"\\\\c"', ju = "any character", Qu = function(n) {
       return new ControlCharacter(n);
-    }, nu = "\\", tu = '"\\\\"', ru = /^[1-9]/, lu = "[1-9]", uu = function(n) {
+    }, Fu = "\\", Su = '"\\\\"', Uu = /^[1-9]/, Bu = "[1-9]", Lu = function(n) {
       return new BackReference(n);
-    }, eu = "\\0", ou = '"\\\\0"', cu = /^[0-7]/, au = "[0-7]", iu = function(n) {
+    }, Mu = "\\0", Eu = '"\\\\0"', Hu = /^[0-7]/, zu = "[0-7]", Zu = function(n) {
       return new Octal(n.join(""));
-    }, su = "\\x", fu = '"\\\\x"', pu = /^[0-9a-fA-F]/, hu = "[0-9a-fA-F]", du = function(n) {
+    }, $u = "\\x", _u = '"\\\\x"', qu = /^[0-9a-fA-F]/, Du = "[0-9a-fA-F]", Pu = function(n) {
       return new Hex(n.join(""));
-    }, Cu = "\\u", vu = '"\\\\u"', Au = function(n) {
+    }, Wu = "\\u", Iu = '"\\\\u"', Ju = function(n) {
       return new Unicode(n.join(""));
-    }, bu = function() {
+    }, Ku = function() {
       return new Token("null-character");
-    }, ku = 0, yu = 0, wu = 0, Tu = {
+    }, Nu = 0, Vu = 0, Xu = 0, Yu = {
       line: 1,
       column: 1,
       seenCR: !1
-    }, gu = 0, xu = [], Ru = 0;
-    if ("startRule" in ht) {
-      if (!(ht.startRule in dt)) throw new Error("Can't start parsing from rule \"" + ht.startRule + '".');
-      Ct = dt[ht.startRule];
+    }, ne = 0, te = [], le = 0;
+    if ("startRule" in dt) {
+      if (!(dt.startRule in Ct)) throw new Error("Can't start parsing from rule \"" + dt.startRule + '".');
+      bt = Ct[dt.startRule];
     }
-    if (Token.offset = l, Token.text = r, pt = Ct(), null !== pt && ku === n.length) return pt;
-    throw o(xu), yu = Math.max(ku, gu), new t(xu, yu < n.length ? n.charAt(yu) : null, yu, u(yu).line, u(yu).column);
+    if (Token.offset = r, Token.text = l, ht = bt(), null !== ht && Nu === n.length) return ht;
+    throw o(te), Vu = Math.max(Nu, ne), new t(te, Vu < n.length ? n.charAt(Vu) : null, Vu, u(Vu).line, u(Vu).column);
   }
   return n(t, Error), {
     SyntaxError: t,
-    parse: r
+    parse: l
   };
 }(), index = 1, cgs = {};
 
@@ -643,7 +669,9 @@ exports.Quantifier = Quantifier, Quantifier.prototype = Object.create(Token.prot
 Quantifier.prototype.constructor = Quantifier, exports.CharSet = CharSet, CharSet.prototype = Object.create(Token.prototype), 
 CharSet.prototype.constructor = CharSet, exports.CharacterRange = CharacterRange, 
 CharacterRange.prototype = Object.create(Token.prototype), CharacterRange.prototype.constructor = CharacterRange, 
-exports.Literal = Literal, Literal.prototype = Object.create(Token.prototype), Literal.prototype.constructor = Literal, 
+exports.CharacterClass = CharacterClass, CharacterClass.prototype = Object.create(Token.prototype), 
+CharacterClass.prototype.constructor = CharacterClass, exports.Literal = Literal, 
+Literal.prototype = Object.create(Token.prototype), Literal.prototype.constructor = Literal, 
 exports.Unicode = Unicode, Unicode.prototype = Object.create(Token.prototype), Unicode.prototype.constructor = Unicode, 
 exports.Hex = Hex, Hex.prototype = Object.create(Token.prototype), Hex.prototype.constructor = Hex, 
 exports.Octal = Octal, Octal.prototype = Object.create(Token.prototype), Octal.prototype.constructor = Octal, 

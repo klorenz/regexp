@@ -42,8 +42,9 @@ namedGroupIndicator = "?P<" / "?<"
 // flags (?iLmsux)
 // (?(id/name)yes|no)
 
-charset "CharacterSet" = "[" invert:"^"? body:(charsetRange / charsetTerminal)* "]" { return new CharSet(!!invert, body) }
+charset "CharacterSet" = "[" invert:"^"? body:(charsetRange / charsetTerminal / charClass)* "]" { return new CharSet(!!invert, body) }
 charsetRange "CharacterRange" = start:charsetTerminal "-" end:charsetTerminal { return new CharacterRange(start, end) }
+charClass "CharacterClass" = "[:" charclass:("alnum" / "alpha" / "blank" / "cntrl" / "digit" / "lower" / "upper" / "graph" / "print" / "punct" / "space" / "xdigit") ":]" { return new CharClass(charclass)}
 charsetTerminal "Character" = charsetEscapedCharacter / charsetLiteral
 charsetLiteral = value:[^\\\]] { return new Literal(value) }
 charsetEscapedCharacter = backspaceCharacter / controlCharacter / digitCharacter / non_digitCharacter / formFeedCharacter / lineFeedCharacter / carriageReturnCharacter / whiteSpaceCharacter / nonWhiteSpaceCharacter / tabCharacter / verticalTabCharacter / wordCharacter / nonWordCharacter / octalCharacter / hexCharacter / unicodeCharacter / nullCharacter / otherEscaped

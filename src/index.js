@@ -96,6 +96,15 @@ function CharacterRange(start, end) {
 CharacterRange.prototype = Object.create(Token.prototype)
 CharacterRange.prototype.constructor = CharacterRange
 
+exports.CharacterClass = CharacterClass
+function CharacterClass(start, end) {
+  Token.call(this, 'charclass')
+  this.start = start
+  this.end = end
+}
+CharacterClass.prototype = Object.create(Token.prototype)
+CharacterClass.prototype.constructor = CharacterClass
+
 
 exports.Literal = Literal
 function Literal(body) {
