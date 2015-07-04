@@ -308,8 +308,8 @@ var parser = function() {
       if (le++, t = Nu, 91 === n.charCodeAt(Nu) ? (l = Bl, Nu++) : (l = null, 0 === le && e(Ll)), 
       null !== l) if (94 === n.charCodeAt(Nu) ? (r = Tt, Nu++) : (r = null, 0 === le && e(xt)), 
       null === r && (r = vt), null !== r) {
-        for (u = [], o = U(), null === o && (o = L(), null === o && (o = B())); null !== o; ) u.push(o), 
-        o = U(), null === o && (o = L(), null === o && (o = B()));
+        for (u = [], o = B(), null === o && (o = U(), null === o && (o = L())); null !== o; ) u.push(o), 
+        o = B(), null === o && (o = U(), null === o && (o = L()));
         null !== u ? (93 === n.charCodeAt(Nu) ? (o = Ml, Nu++) : (o = null, 0 === le && e(El)), 
         null !== o ? (Vu = t, l = Hl(r, u), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
         t = kt)) : (Nu = t, t = kt);
