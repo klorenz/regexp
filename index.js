@@ -587,7 +587,7 @@ var parser = function() {
     }, zl = "CharacterRange", Zl = "-", $l = '"-"', _l = function(n, t) {
       return new CharacterRange(n, t);
     }, ql = "CharacterClass", Dl = "[:", Pl = '"[:"', Wl = "alnum", Il = '"alnum"', Jl = "alpha", Kl = '"alpha"', Nl = "blank", Vl = '"blank"', Xl = "cntrl", Yl = '"cntrl"', nr = "digit", tr = '"digit"', lr = "lower", rr = '"lower"', ur = "upper", er = '"upper"', or = "graph", cr = '"graph"', ar = "print", ir = '"print"', sr = "punct", fr = '"punct"', pr = "space", hr = '"space"', dr = "xdigit", Cr = '"xdigit"', br = ":]", kr = '":]"', vr = function(n) {
-      return new CharClass(n);
+      return new CharacterClass(n);
     }, Ar = "Character", yr = /^[^\\\]]/, wr = "[^\\\\\\]]", gr = function(n) {
       return new Literal(n);
     }, Tr = ".", xr = '"."', Rr = function() {

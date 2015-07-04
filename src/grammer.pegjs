@@ -44,7 +44,7 @@ namedGroupIndicator = "?P<" / "?<"
 
 charset "CharacterSet" = "[" invert:"^"? body:(charClass / charsetRange / charsetTerminal)* "]" { return new CharSet(!!invert, body) }
 charsetRange "CharacterRange" = start:charsetTerminal "-" end:charsetTerminal { return new CharacterRange(start, end) }
-charClass "CharacterClass" = "[:" charclass:("alnum" / "alpha" / "blank" / "cntrl" / "digit" / "lower" / "upper" / "graph" / "print" / "punct" / "space" / "xdigit") ":]" { return new CharClass(charclass)}
+charClass "CharacterClass" = "[:" charclass:("alnum" / "alpha" / "blank" / "cntrl" / "digit" / "lower" / "upper" / "graph" / "print" / "punct" / "space" / "xdigit") ":]" { return new CharacterClass(charclass)}
 charsetTerminal "Character" = charsetEscapedCharacter / charsetLiteral
 charsetLiteral = value:[^\\\]] { return new Literal(value) }
 charsetEscapedCharacter = backspaceCharacter / controlCharacter / digitCharacter / non_digitCharacter / formFeedCharacter / lineFeedCharacter / carriageReturnCharacter / whiteSpaceCharacter / nonWhiteSpaceCharacter / tabCharacter / verticalTabCharacter / wordCharacter / nonWordCharacter / octalCharacter / hexCharacter / unicodeCharacter / nullCharacter / otherEscaped
