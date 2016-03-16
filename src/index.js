@@ -12,7 +12,13 @@ function parse(str) {
   //capture group index
   index = 1
   cgs = {}
-  return parser.parse(str)
+  result = parser.parse(str)
+  for (var i=0 ; i < str.length ; i++) {
+    if (cgs[i]) {
+      cgs[i].index = index++;
+    }
+  }
+  return result;
 }
 
 exports.Token = Token
@@ -52,7 +58,8 @@ function CaptureGroup(body, name) {
   Group.call(this, 'capture-group')
 
   // a bug means this gets called multiple times so memoize based on the offset
-  this.index = cgs[this.offset] || (cgs[this.offset] = index++)
+  cgs[this.offset] = this
+
   this.body = body
   if (name) this.name = name[0] + name[1].join('');
 }

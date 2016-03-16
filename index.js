@@ -3,7 +3,9 @@ function parse(n) {
     var t = new TypeError("The regexp to parse must be represented as a string.");
     throw t;
   }
-  return index = 1, cgs = {}, parser.parse(n);
+  index = 1, cgs = {}, result = parser.parse(n);
+  for (var l = 0; l < n.length; l++) cgs[l] && (cgs[l].index = index++);
+  return result;
 }
 
 function Token(n) {
@@ -23,8 +25,7 @@ function Group(n, t) {
 }
 
 function CaptureGroup(n, t) {
-  Group.call(this, "capture-group"), this.index = cgs[this.offset] || (cgs[this.offset] = index++), 
-  this.body = n, t && (this.name = t[0] + t[1].join(""));
+  Group.call(this, "capture-group"), cgs[this.offset] = this, this.body = n, t && (this.name = t[0] + t[1].join(""));
 }
 
 function Quantified(n, t) {
@@ -143,19 +144,19 @@ var parser = function() {
       var t, l, r, u, o;
       return t = Nu, l = a(), null !== l ? (r = Nu, 124 === n.charCodeAt(Nu) ? (u = At, 
       Nu++) : (u = null, 0 === le && e(yt)), null !== u ? (o = c(), null !== o ? (u = [ u, o ], 
-      r = u) : (Nu = r, r = kt)) : (Nu = r, r = kt), null === r && (r = vt), null !== r ? (Vu = t, 
-      l = wt(l, r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, t = kt)) : (Nu = t, 
-      t = kt), t;
+      r = u) : (Nu = r, r = vt)) : (Nu = r, r = vt), null === r && (r = kt), null !== r ? (Vu = t, 
+      l = wt(l, r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, t = vt)) : (Nu = t, 
+      t = vt), t;
     }
     function a() {
       var n, t, l, r, u;
-      if (n = Nu, t = s(), null === t && (t = vt), null !== t) if (l = Nu, le++, r = h(), 
-      le--, null === r ? l = vt : (Nu = l, l = kt), null !== l) {
+      if (n = Nu, t = s(), null === t && (t = kt), null !== t) if (l = Nu, le++, r = h(), 
+      le--, null === r ? l = kt : (Nu = l, l = vt), null !== l) {
         for (r = [], u = p(), null === u && (u = i()); null !== u; ) r.push(u), u = p(), 
         null === u && (u = i());
-        null !== r ? (u = f(), null === u && (u = vt), null !== u ? (Vu = n, t = gt(t, r, u), 
-        null === t ? (Nu = n, n = t) : n = t) : (Nu = n, n = kt)) : (Nu = n, n = kt);
-      } else Nu = n, n = kt; else Nu = n, n = kt;
+        null !== r ? (u = f(), null === u && (u = kt), null !== u ? (Vu = n, t = gt(t, r, u), 
+        null === t ? (Nu = n, n = t) : n = t) : (Nu = n, n = vt)) : (Nu = n, n = vt);
+      } else Nu = n, n = vt; else Nu = n, n = vt;
       return n;
     }
     function i() {
@@ -175,17 +176,17 @@ var parser = function() {
     function p() {
       var n, t, l;
       return n = Nu, t = i(), null !== t ? (l = h(), null !== l ? (Vu = n, t = jt(t, l), 
-      null === t ? (Nu = n, n = t) : n = t) : (Nu = n, n = kt)) : (Nu = n, n = kt), n;
+      null === t ? (Nu = n, n = t) : n = t) : (Nu = n, n = vt)) : (Nu = n, n = vt), n;
     }
     function h() {
       var n, t, l;
-      return le++, n = Nu, t = d(), null !== t ? (l = w(), null === l && (l = vt), null !== l ? (Vu = n, 
-      t = Ft(t, l), null === t ? (Nu = n, n = t) : n = t) : (Nu = n, n = kt)) : (Nu = n, 
-      n = kt), le--, null === n && (t = null, 0 === le && e(Qt)), n;
+      return le++, n = Nu, t = d(), null !== t ? (l = w(), null === l && (l = kt), null !== l ? (Vu = n, 
+      t = Ft(t, l), null === t ? (Nu = n, n = t) : n = t) : (Nu = n, n = vt)) : (Nu = n, 
+      n = vt), le--, null === n && (t = null, 0 === le && e(Qt)), n;
     }
     function d() {
       var n;
-      return n = C(), null === n && (n = b(), null === n && (n = k(), null === n && (n = v(), 
+      return n = C(), null === n && (n = b(), null === n && (n = v(), null === n && (n = k(), 
       null === n && (n = A(), null === n && (n = y()))))), n;
     }
     function C() {
@@ -194,24 +195,24 @@ var parser = function() {
       null !== l ? (r = g(), null !== r ? (44 === n.charCodeAt(Nu) ? (u = Bt, Nu++) : (u = null, 
       0 === le && e(Lt)), null !== u ? (o = g(), null !== o ? (125 === n.charCodeAt(Nu) ? (c = Mt, 
       Nu++) : (c = null, 0 === le && e(Et)), null !== c ? (Vu = t, l = Ht(r, o), null === l ? (Nu = t, 
-      t = l) : t = l) : (Nu = t, t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt)) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt), t;
+      t = l) : t = l) : (Nu = t, t = vt)) : (Nu = t, t = vt)) : (Nu = t, t = vt)) : (Nu = t, 
+      t = vt)) : (Nu = t, t = vt), t;
     }
     function b() {
       var t, l, r, u;
       return t = Nu, 123 === n.charCodeAt(Nu) ? (l = St, Nu++) : (l = null, 0 === le && e(Ut)), 
       null !== l ? (r = g(), null !== r ? (n.substr(Nu, 2) === zt ? (u = zt, Nu += 2) : (u = null, 
       0 === le && e(Zt)), null !== u ? (Vu = t, l = $t(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt), t;
+      t = vt)) : (Nu = t, t = vt)) : (Nu = t, t = vt), t;
     }
-    function k() {
+    function v() {
       var t, l, r, u;
       return t = Nu, 123 === n.charCodeAt(Nu) ? (l = St, Nu++) : (l = null, 0 === le && e(Ut)), 
       null !== l ? (r = g(), null !== r ? (125 === n.charCodeAt(Nu) ? (u = Mt, Nu++) : (u = null, 
       0 === le && e(Et)), null !== u ? (Vu = t, l = _t(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt), t;
+      t = vt)) : (Nu = t, t = vt)) : (Nu = t, t = vt), t;
     }
-    function v() {
+    function k() {
       var t, l;
       return t = Nu, 43 === n.charCodeAt(Nu) ? (l = qt, Nu++) : (l = null, 0 === le && e(Dt)), 
       null !== l && (Vu = t, l = Pt()), null === l ? (Nu = t, t = l) : t = l, t;
@@ -235,7 +236,7 @@ var parser = function() {
       var t, l, r;
       if (t = Nu, l = [], Xt.test(n.charAt(Nu)) ? (r = n.charAt(Nu), Nu++) : (r = null, 
       0 === le && e(Yt)), null !== r) for (;null !== r; ) l.push(r), Xt.test(n.charAt(Nu)) ? (r = n.charAt(Nu), 
-      Nu++) : (r = null, 0 === le && e(Yt)); else l = kt;
+      Nu++) : (r = null, 0 === le && e(Yt)); else l = vt;
       return null !== l && (Vu = t, l = nl(l)), null === l ? (Nu = t, t = l) : t = l, 
       t;
     }
@@ -245,7 +246,7 @@ var parser = function() {
       null !== l ? (r = m(), null === r && (r = G(), null === r && (r = O(), null === r && (r = j(), 
       null === r && (r = Q(), null === r && (r = R(), null === r && (r = x())))))), null !== r ? (41 === n.charCodeAt(Nu) ? (u = rl, 
       Nu++) : (u = null, 0 === le && e(ul)), null !== u ? (Vu = t, l = el(r), null === l ? (Nu = t, 
-      t = l) : t = l) : (Nu = t, t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt), t;
+      t = l) : t = l) : (Nu = t, t = vt)) : (Nu = t, t = vt)) : (Nu = t, t = vt), t;
     }
     function x() {
       var n, t;
@@ -256,31 +257,31 @@ var parser = function() {
       var t, l, r;
       return t = Nu, n.substr(Nu, 2) === cl ? (l = cl, Nu += 2) : (l = null, 0 === le && e(al)), 
       null !== l ? (r = c(), null !== r ? (Vu = t, l = il(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt), t;
+      t = vt)) : (Nu = t, t = vt), t;
     }
     function m() {
       var t, l, r;
       return t = Nu, n.substr(Nu, 2) === sl ? (l = sl, Nu += 2) : (l = null, 0 === le && e(fl)), 
       null !== l ? (r = c(), null !== r ? (Vu = t, l = pl(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt), t;
+      t = vt)) : (Nu = t, t = vt), t;
     }
     function G() {
       var t, l, r;
       return t = Nu, n.substr(Nu, 2) === hl ? (l = hl, Nu += 2) : (l = null, 0 === le && e(dl)), 
       null !== l ? (r = c(), null !== r ? (Vu = t, l = Cl(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt), t;
+      t = vt)) : (Nu = t, t = vt), t;
     }
     function O() {
       var t, l, r;
-      return t = Nu, n.substr(Nu, 3) === bl ? (l = bl, Nu += 3) : (l = null, 0 === le && e(kl)), 
-      null !== l ? (r = c(), null !== r ? (Vu = t, l = vl(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt), t;
+      return t = Nu, n.substr(Nu, 3) === bl ? (l = bl, Nu += 3) : (l = null, 0 === le && e(vl)), 
+      null !== l ? (r = c(), null !== r ? (Vu = t, l = kl(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = vt)) : (Nu = t, t = vt), t;
     }
     function j() {
       var t, l, r;
       return t = Nu, n.substr(Nu, 3) === Al ? (l = Al, Nu += 3) : (l = null, 0 === le && e(yl)), 
       null !== l ? (r = c(), null !== r ? (Vu = t, l = wl(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt), t;
+      t = vt)) : (Nu = t, t = vt), t;
     }
     function Q() {
       var t, l, r, u, o, a;
@@ -289,12 +290,12 @@ var parser = function() {
         null !== u) {
           for (o = [], xl.test(n.charAt(Nu)) ? (a = n.charAt(Nu), Nu++) : (a = null, 0 === le && e(Rl)); null !== a; ) o.push(a), 
           xl.test(n.charAt(Nu)) ? (a = n.charAt(Nu), Nu++) : (a = null, 0 === le && e(Rl));
-          null !== o ? (u = [ u, o ], r = u) : (Nu = r, r = kt);
-        } else Nu = r, r = kt;
+          null !== o ? (u = [ u, o ], r = u) : (Nu = r, r = vt);
+        } else Nu = r, r = vt;
         null !== r ? (62 === n.charCodeAt(Nu) ? (u = ml, Nu++) : (u = null, 0 === le && e(Gl)), 
         null !== u ? (o = c(), null !== o ? (Vu = t, l = Ol(r, o), null === l ? (Nu = t, 
-        t = l) : t = l) : (Nu = t, t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt);
-      } else Nu = t, t = kt;
+        t = l) : t = l) : (Nu = t, t = vt)) : (Nu = t, t = vt)) : (Nu = t, t = vt);
+      } else Nu = t, t = vt;
       return t;
     }
     function F() {
@@ -307,20 +308,20 @@ var parser = function() {
       var t, l, r, u, o;
       if (le++, t = Nu, 91 === n.charCodeAt(Nu) ? (l = Bl, Nu++) : (l = null, 0 === le && e(Ll)), 
       null !== l) if (94 === n.charCodeAt(Nu) ? (r = Tt, Nu++) : (r = null, 0 === le && e(xt)), 
-      null === r && (r = vt), null !== r) {
+      null === r && (r = kt), null !== r) {
         for (u = [], o = B(), null === o && (o = U(), null === o && (o = L())); null !== o; ) u.push(o), 
         o = B(), null === o && (o = U(), null === o && (o = L()));
         null !== u ? (93 === n.charCodeAt(Nu) ? (o = Ml, Nu++) : (o = null, 0 === le && e(El)), 
         null !== o ? (Vu = t, l = Hl(r, u), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-        t = kt)) : (Nu = t, t = kt);
-      } else Nu = t, t = kt; else Nu = t, t = kt;
+        t = vt)) : (Nu = t, t = vt);
+      } else Nu = t, t = vt; else Nu = t, t = vt;
       return le--, null === t && (l = null, 0 === le && e(Ul)), t;
     }
     function U() {
       var t, l, r, u;
       return le++, t = Nu, l = L(), null !== l ? (45 === n.charCodeAt(Nu) ? (r = Zl, Nu++) : (r = null, 
       0 === le && e($l)), null !== r ? (u = L(), null !== u ? (Vu = t, l = _l(l, u), null === l ? (Nu = t, 
-      t = l) : t = l) : (Nu = t, t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt), le--, 
+      t = l) : t = l) : (Nu = t, t = vt)) : (Nu = t, t = vt)) : (Nu = t, t = vt), le--, 
       null === t && (l = null, 0 === le && e(zl)), t;
     }
     function B() {
@@ -338,9 +339,9 @@ var parser = function() {
       null === r && (n.substr(Nu, 5) === sr ? (r = sr, Nu += 5) : (r = null, 0 === le && e(fr)), 
       null === r && (n.substr(Nu, 5) === pr ? (r = pr, Nu += 5) : (r = null, 0 === le && e(hr)), 
       null === r && (n.substr(Nu, 6) === dr ? (r = dr, Nu += 6) : (r = null, 0 === le && e(Cr))))))))))))), 
-      null !== r ? (n.substr(Nu, 2) === br ? (u = br, Nu += 2) : (u = null, 0 === le && e(kr)), 
-      null !== u ? (Vu = t, l = vr(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt)) : (Nu = t, t = kt), le--, null === t && (l = null, 
+      null !== r ? (n.substr(Nu, 2) === br ? (u = br, Nu += 2) : (u = null, 0 === le && e(vr)), 
+      null !== u ? (Vu = t, l = kr(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
+      t = vt)) : (Nu = t, t = vt)) : (Nu = t, t = vt), le--, null === t && (l = null, 
       0 === le && e(ql)), t;
     }
     function L() {
@@ -459,11 +460,11 @@ var parser = function() {
     function lt() {
       var t, l;
       return t = Nu, n.substr(Nu, 2) === Cu ? (l = Cu, Nu += 2) : (l = null, 0 === le && e(bu)), 
-      null !== l && (Vu = t, l = ku()), null === l ? (Nu = t, t = l) : t = l, t;
+      null !== l && (Vu = t, l = vu()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function rt() {
       var t, l;
-      return t = Nu, n.substr(Nu, 2) === vu ? (l = vu, Nu += 2) : (l = null, 0 === le && e(Au)), 
+      return t = Nu, n.substr(Nu, 2) === ku ? (l = ku, Nu += 2) : (l = null, 0 === le && e(Au)), 
       null !== l && (Vu = t, l = yu()), null === l ? (Nu = t, t = l) : t = l, t;
     }
     function ut() {
@@ -481,14 +482,14 @@ var parser = function() {
       return t = Nu, n.substr(Nu, 2) === Gu ? (l = Gu, Nu += 2) : (l = null, 0 === le && e(Ou)), 
       null !== l ? (n.length > Nu ? (r = n.charAt(Nu), Nu++) : (r = null, 0 === le && e(ju)), 
       null !== r ? (Vu = t, l = Qu(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt), t;
+      t = vt)) : (Nu = t, t = vt), t;
     }
     function ct() {
       var t, l, r;
       return t = Nu, 92 === n.charCodeAt(Nu) ? (l = Fu, Nu++) : (l = null, 0 === le && e(Su)), 
       null !== l ? (Uu.test(n.charAt(Nu)) ? (r = n.charAt(Nu), Nu++) : (r = null, 0 === le && e(Bu)), 
       null !== r ? (Vu = t, l = Lu(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt), t;
+      t = vt)) : (Nu = t, t = vt), t;
     }
     function at() {
       var t, l, r, u;
@@ -496,10 +497,10 @@ var parser = function() {
       null !== l) {
         if (r = [], Hu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), Nu++) : (u = null, 0 === le && e(zu)), 
         null !== u) for (;null !== u; ) r.push(u), Hu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), 
-        Nu++) : (u = null, 0 === le && e(zu)); else r = kt;
+        Nu++) : (u = null, 0 === le && e(zu)); else r = vt;
         null !== r ? (Vu = t, l = Zu(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-        t = kt);
-      } else Nu = t, t = kt;
+        t = vt);
+      } else Nu = t, t = vt;
       return t;
     }
     function it() {
@@ -508,10 +509,10 @@ var parser = function() {
       null !== l) {
         if (r = [], qu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), Nu++) : (u = null, 0 === le && e(Du)), 
         null !== u) for (;null !== u; ) r.push(u), qu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), 
-        Nu++) : (u = null, 0 === le && e(Du)); else r = kt;
+        Nu++) : (u = null, 0 === le && e(Du)); else r = vt;
         null !== r ? (Vu = t, l = Pu(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-        t = kt);
-      } else Nu = t, t = kt;
+        t = vt);
+      } else Nu = t, t = vt;
       return t;
     }
     function st() {
@@ -520,10 +521,10 @@ var parser = function() {
       null !== l) {
         if (r = [], qu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), Nu++) : (u = null, 0 === le && e(Du)), 
         null !== u) for (;null !== u; ) r.push(u), qu.test(n.charAt(Nu)) ? (u = n.charAt(Nu), 
-        Nu++) : (u = null, 0 === le && e(Du)); else r = kt;
+        Nu++) : (u = null, 0 === le && e(Du)); else r = vt;
         null !== r ? (Vu = t, l = Ju(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-        t = kt);
-      } else Nu = t, t = kt;
+        t = vt);
+      } else Nu = t, t = vt;
       return t;
     }
     function ft() {
@@ -536,11 +537,11 @@ var parser = function() {
       return t = Nu, 92 === n.charCodeAt(Nu) ? (l = Fu, Nu++) : (l = null, 0 === le && e(Su)), 
       null !== l ? (n.length > Nu ? (r = n.charAt(Nu), Nu++) : (r = null, 0 === le && e(ju)), 
       null !== r ? (Vu = t, l = gr(r), null === l ? (Nu = t, t = l) : t = l) : (Nu = t, 
-      t = kt)) : (Nu = t, t = kt), t;
+      t = vt)) : (Nu = t, t = vt), t;
     }
     var ht, dt = arguments.length > 1 ? arguments[1] : {}, Ct = {
       regexp: c
-    }, bt = c, kt = null, vt = "", At = "|", yt = '"|"', wt = function(n, t) {
+    }, bt = c, vt = null, kt = "", At = "|", yt = '"|"', wt = function(n, t) {
       return t ? new Alternate(n, t[1]) : n;
     }, gt = function(n, t, l) {
       return new Match([ n ].concat(t).concat([ l ]));
@@ -576,7 +577,7 @@ var parser = function() {
       return new Group("positive-lookahead", n);
     }, hl = "?!", dl = '"?!"', Cl = function(n) {
       return new Group("negative-lookahead", n);
-    }, bl = "?<=", kl = '"?<="', vl = function(n) {
+    }, bl = "?<=", vl = '"?<="', kl = function(n) {
       return new Group("positive-lookbehind", n);
     }, Al = "?<!", yl = '"?<!"', wl = function(n) {
       return new Group("negative-lookbehind", n);
@@ -586,7 +587,7 @@ var parser = function() {
       return new CharSet(!!n, t);
     }, zl = "CharacterRange", Zl = "-", $l = '"-"', _l = function(n, t) {
       return new CharacterRange(n, t);
-    }, ql = "CharacterClass", Dl = "[:", Pl = '"[:"', Wl = "alnum", Il = '"alnum"', Jl = "alpha", Kl = '"alpha"', Nl = "blank", Vl = '"blank"', Xl = "cntrl", Yl = '"cntrl"', nr = "digit", tr = '"digit"', lr = "lower", rr = '"lower"', ur = "upper", er = '"upper"', or = "graph", cr = '"graph"', ar = "print", ir = '"print"', sr = "punct", fr = '"punct"', pr = "space", hr = '"space"', dr = "xdigit", Cr = '"xdigit"', br = ":]", kr = '":]"', vr = function(n) {
+    }, ql = "CharacterClass", Dl = "[:", Pl = '"[:"', Wl = "alnum", Il = '"alnum"', Jl = "alpha", Kl = '"alpha"', Nl = "blank", Vl = '"blank"', Xl = "cntrl", Yl = '"cntrl"', nr = "digit", tr = '"digit"', lr = "lower", rr = '"lower"', ur = "upper", er = '"upper"', or = "graph", cr = '"graph"', ar = "print", ir = '"print"', sr = "punct", fr = '"punct"', pr = "space", hr = '"space"', dr = "xdigit", Cr = '"xdigit"', br = ":]", vr = '":]"', kr = function(n) {
       return new CharacterClass(n);
     }, Ar = "Character", yr = /^[^\\\]]/, wr = "[^\\\\\\]]", gr = function(n) {
       return new Literal(n);
@@ -620,9 +621,9 @@ var parser = function() {
       return new Token("white-space");
     }, pu = "\\S", hu = '"\\\\S"', du = function() {
       return new Token("non-white-space");
-    }, Cu = "\\t", bu = '"\\\\t"', ku = function() {
+    }, Cu = "\\t", bu = '"\\\\t"', vu = function() {
       return new Token("tab");
-    }, vu = "\\v", Au = '"\\\\v"', yu = function() {
+    }, ku = "\\v", Au = '"\\\\v"', yu = function() {
       return new Token("vertical-tab");
     }, wu = "\\w", gu = '"\\\\w"', Tu = function() {
       return new Token("word");

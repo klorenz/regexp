@@ -307,5 +307,53 @@ module.exports = [
                  escaped: false } ] },
          index: 1,
          name: 'name' } ] }
-  ]
+  ],
+  ["((a)(b))", {
+    type: 'match',
+    offset: 0,
+    text: '((a)(b))',
+    body:
+     [ {
+         type: 'capture-group',
+         offset: 1,
+         text: '(a)(b)',
+         body: {
+            type: 'match',
+            offset: 1,
+            text: '(a)(b)',
+            body:
+             [ {
+                 type: 'capture-group',
+                 offset: 2,
+                 text: 'a',
+                 body: {
+                    type: 'match',
+                    offset: 2,
+                    text: 'a',
+                    body:
+                     [ {
+                         type: 'literal',
+                         offset: 2,
+                         text: 'a',
+                         body: 'a',
+                         escaped: false } ] },
+                 index: 2 },
+               {
+                 type: 'capture-group',
+                 offset: 5,
+                 text: 'b',
+                 body: {
+                    type: 'match',
+                    offset: 5,
+                    text: 'b',
+                    body:
+                     [ {
+                         type: 'literal',
+                         offset: 5,
+                         text: 'b',
+                         body: 'b',
+                         escaped: false } ] },
+                 index: 3 } ] },
+         index: 1 } ] }
+]
 ]
