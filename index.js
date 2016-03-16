@@ -24,7 +24,7 @@ function Group(n, t) {
 
 function CaptureGroup(n, t) {
   Group.call(this, "capture-group"), this.index = cgs[this.offset] || (cgs[this.offset] = index++), 
-  this.body = n, t && (this.name = t[0]);
+  this.body = n, t && (this.name = t[0] + t[1].join(""));
 }
 
 function Quantified(n, t) {

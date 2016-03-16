@@ -285,27 +285,27 @@ module.exports = [
       code: 'M'
     }]
   }],
-  ["(?<a>b)", {
+  ["(?<name>b)", {
     type: 'match',
     offset: 0,
-    text: '(?<a>b)',
+    text: '(?<name>b)',
     body:
      [ {
          type: 'capture-group',
          offset: 1,
-         text: '?<a>b',
+         text: '?<name>b',
          body: {
             type: 'match',
-            offset: 5,
+            offset: 8,
             text: 'b',
             body:
              [ {
                  type: 'literal',
-                 offset: 5,
+                 offset: 8,
                  text: 'b',
                  body: 'b',
                  escaped: false } ] },
          index: 1,
-         name: 'a' } ] }
+         name: 'name' } ] }
   ]
 ]
