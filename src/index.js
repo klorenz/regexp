@@ -130,6 +130,15 @@ function Unicode(code) {
 Unicode.prototype = Object.create(Token.prototype)
 Unicode.prototype.constructor = Unicode
 
+exports.UnicodeCategory = UnicodeCategory
+function UnicodeCategory(code, invert) {
+  Token.call(this, 'unicode-category')
+  this.code = code
+  this.invert = invert
+}
+UnicodeCategory.prototype = Object.create(Token.prototype)
+UnicodeCategory.constructor = Unicode
+
 exports.Hex = Hex
 function Hex(code) {
   Token.call(this, 'hex')

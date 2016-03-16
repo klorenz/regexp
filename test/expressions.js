@@ -355,5 +355,17 @@ module.exports = [
                          escaped: false } ] },
                  index: 3 } ] },
          index: 1 } ] }
-]
+       ],
+    [ "\\p{Latin}", {
+      type: 'match',
+      offset: 0,
+      text: '\\p{Latin}',
+      body:
+       [ {
+           type: 'unicode-category',
+           offset: 0,
+           text: '\\p{Latin}',
+           code: 'Latin',
+           invert: undefined } ] }
+   ]
 ]

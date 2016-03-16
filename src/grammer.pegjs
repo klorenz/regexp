@@ -34,9 +34,7 @@ positiveLookahead = "?=" regexp:regexp   { return new Group('positive-lookahead'
 negativeLookahead = "?!" regexp:regexp   { return new Group('negative-lookahead', regexp) }
 positiveLookbehind = "?<=" regexp:regexp   { return new Group('positive-lookbehind', regexp) }
 negativeLookbehind = "?<!" regexp:regexp   { return new Group('negative-lookbehind', regexp) }
-
 namedGroupCapture = namedGroupIndicator name:([A-Za-z_] [A-Za-z0-9_]*) ">" regexp:regexp   { return new CaptureGroup(regexp, name) }
-
 namedGroupIndicator = "?P<" / "?<"
 
 // flags (?iLmsux)
@@ -55,7 +53,7 @@ anyCharacter = "." { return new Token('any-character') }
 
 literal "Literal" = value:[^|\\.\[\(\)\?\+\*\$\^] { return new Literal(value) }
 
-escapedCharacter = word_boundaryCharacter /  nonWord_boundaryCharacter /  beginOfString / endOfStringBeforeNL / endOfString / matchingStartPosition / controlCharacter /  digitCharacter /  non_digitCharacter /  formFeedCharacter /  lineFeedCharacter /  carriageReturnCharacter /  whiteSpaceCharacter /  nonWhiteSpaceCharacter /  tabCharacter /  verticalTabCharacter /  wordCharacter /  nonWordCharacter /  backReference /  octalCharacter /  hexCharacter /  unicodeCharacter /  nullCharacter / otherEscaped
+escapedCharacter = word_boundaryCharacter /  nonWord_boundaryCharacter /  beginOfString / endOfStringBeforeNL / endOfString / matchingStartPosition / controlCharacter /  digitCharacter /  non_digitCharacter /  formFeedCharacter /  lineFeedCharacter /  carriageReturnCharacter /  whiteSpaceCharacter /  nonWhiteSpaceCharacter /  tabCharacter /  verticalTabCharacter /  wordCharacter /  nonWordCharacter /  backReference /  octalCharacter /  hexCharacter /  unicodeCharacter / unicodeCategory / nonUnicodeCategory nullCharacter / otherEscaped
 
 backspaceCharacter = "\\b" { return new Token('backspace') }
 word_boundaryCharacter = "\\b" { return new Token('word-boundary') }
@@ -83,6 +81,8 @@ backReference = "\\" code:[1-9] { return new BackReference(code) }
 octalCharacter = "\\0" code:([0-7]+) { return new Octal(code.join('')) }
 hexCharacter = "\\x" code:([0-9a-fA-F]+) { return new Hex(code.join('')) }
 unicodeCharacter = "\\u" code:([0-9a-fA-F]+) { return new Unicode(code.join('')) }
+unicodeCategory = "\\p{" code:([0-9a-zA-Z_]+) "}" { return new UnicodeCategory(code.join('')) }
+nonUnicodeCategory = "\\P{" code:([0-9a-zA-Z_]+) "}" { return new UnicodeCategory(code.join(''), true) }
 
 nullCharacter = "\\0" { return new Token('null-character') }
 otherEscaped = "\\" value:. { return new Literal(value) }
