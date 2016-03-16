@@ -284,5 +284,28 @@ module.exports = [
       text: '\\cm',
       code: 'M'
     }]
-  }]
+  }],
+  ["(?<a>b)", {
+    type: 'match',
+    offset: 0,
+    text: '(?<a>b)',
+    body:
+     [ {
+         type: 'capture-group',
+         offset: 1,
+         text: '?<a>b',
+         body: {
+            type: 'match',
+            offset: 5,
+            text: 'b',
+            body:
+             [ {
+                 type: 'literal',
+                 offset: 5,
+                 text: 'b',
+                 body: 'b',
+                 escaped: false } ] },
+         index: 1,
+         name: 'a' } ] }
+  ]
 ]
