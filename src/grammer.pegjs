@@ -53,7 +53,7 @@ anyCharacter = "." { return new Token('any-character') }
 
 literal "Literal" = value:[^|\\.\[\(\)\?\+\*\$\^] { return new Literal(value) }
 
-escapedCharacter = word_boundaryCharacter /  nonWord_boundaryCharacter /  beginOfString / endOfStringBeforeNL / endOfString / matchingStartPosition / controlCharacter /  digitCharacter /  non_digitCharacter /  formFeedCharacter /  lineFeedCharacter /  carriageReturnCharacter /  whiteSpaceCharacter /  nonWhiteSpaceCharacter /  tabCharacter /  verticalTabCharacter /  wordCharacter /  nonWordCharacter /  backReference /  octalCharacter /  hexCharacter /  unicodeCharacter / unicodeCategory / nonUnicodeCategory nullCharacter / otherEscaped
+escapedCharacter = word_boundaryCharacter /  nonWord_boundaryCharacter /  beginOfString / endOfStringBeforeNL / endOfString / matchingStartPosition / controlCharacter /  digitCharacter /  non_digitCharacter /  formFeedCharacter /  lineFeedCharacter /  carriageReturnCharacter /  whiteSpaceCharacter /  nonWhiteSpaceCharacter /  tabCharacter /  verticalTabCharacter /  wordCharacter /  nonWordCharacter /  backReference /  octalCharacter /  hexCharacter /  unicodeCharacter / unicodeCategory / nonUnicodeCategory / nullCharacter / otherEscaped
 
 backspaceCharacter = "\\b" { return new Token('backspace') }
 word_boundaryCharacter = "\\b" { return new Token('word-boundary') }
