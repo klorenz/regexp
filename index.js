@@ -382,15 +382,14 @@ var parser = function() {
       pe--, null === t && (l = null, 0 === pe && e(Gr)), t;
     }
     function _() {
-      var n, t, l;
+      var n;
       return n = $(), null === n && (n = J(), null === n && (n = q(), null === n && (n = D(), 
       null === n && (n = W(), null === n && (n = I(), null === n && (n = ot(), null === n && (n = K(), 
       null === n && (n = N(), null === n && (n = V(), null === n && (n = X(), null === n && (n = Y(), 
       null === n && (n = nt(), null === n && (n = tt(), null === n && (n = lt(), null === n && (n = rt(), 
       null === n && (n = ut(), null === n && (n = et(), null === n && (n = ct(), null === n && (n = at(), 
-      null === n && (n = it(), null === n && (n = st(), null === n && (n = ft(), null === n && (n = oe, 
-      t = pt(), null !== t ? (l = ht(), null !== l ? (t = [ t, l ], n = t) : (oe = n, 
-      n = kt)) : (oe = n, n = kt), null === n && (n = dt())))))))))))))))))))))))), n;
+      null === n && (n = it(), null === n && (n = st(), null === n && (n = ft(), null === n && (n = pt(), 
+      null === n && (n = ht(), null === n && (n = dt()))))))))))))))))))))))))), n;
     }
     function P() {
       var t, l;
