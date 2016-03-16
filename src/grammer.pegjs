@@ -5,7 +5,7 @@
 
 regexp      = match:match alternate:("|" regexp)? { return alternate ? new Alternate(match, alternate[1]) : match }
 
-match       = start:start? (!quantifier) match:(quantified / submatch)* end:end? { return new Match([start].concat(match).concat([end])) }
+match       = start:start? (!quantifier) match:(groupFlags / quantified / submatch)* end:end? { return new Match([start].concat(match).concat([end])) }
 submatch    = subexp / charset / terminal
 
 start       = "^" { return new Token('start') }
@@ -27,7 +27,10 @@ greedyFlag      = "?"
 integer = num:([0-9]+) { return +num.join('') }
 
 
-subexp = "(" body:(positiveLookahead / negativeLookahead / positiveLookbehind / negativeLookbehind / namedGroupCapture / groupNoCapture / groupCapture) ")" { return body}
+subexp = "(" body:(positiveLookahead / negativeLookahead / positiveLookbehind / negativeLookbehind / namedGroupCapture / groupFlagsNoCapture / groupFlags / groupNoCapture / groupCapture) ")" { return body}
+groupFlagsNoCapture = "?"  flags:([adluimsx-]+) ":" regexp:regexp { return new Group('non-capture-group', new Match([ new Group('flags', flags), regexp ])) }
+groupFlags        = "?"  flags:([adluimsx-]+) { return new Group('flags', flags)}
+// nonGroupFlags     = "?^"  flags:([adluimsx-])
 groupCapture      =      regexp:regexp   { return new CaptureGroup(regexp) }
 groupNoCapture    = "?:" regexp:regexp   { return new Group('non-capture-group', regexp) }
 positiveLookahead = "?=" regexp:regexp   { return new Group('positive-lookahead', regexp) }

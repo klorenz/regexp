@@ -367,5 +367,59 @@ module.exports = [
            text: '\\p{Latin}',
            code: 'Latin',
            invert: undefined } ] }
+   ],
+   [ "(?i)", {
+    type: 'match',
+    offset: 0,
+    text: '(?i)',
+    body: [ { type: 'flags', offset: 1, text: '?i', body: [ 'i' ] } ] }
+   ],
+   [ "(?s-i)x", {
+    type: 'match',
+    offset: 0,
+    text: '(?s-i)x',
+    body:
+     [ {
+         type: 'flags',
+         offset: 1,
+         text: '?s-i',
+         body: [ 's', '-', 'i' ] },
+       {
+         type: 'literal',
+         offset: 6,
+         text: 'x',
+         body: 'x',
+         escaped: false } ] }
+   ],
+   [ "(?s-i:x)", {
+    type: 'match',
+    offset: 0,
+    text: '(?s-i:x)',
+    body:
+     [ {
+         type: 'non-capture-group',
+         offset: 1,
+         text: '?s-i:x',
+         body: {
+            type: 'match',
+            offset: 1,
+            text: '?s-i:x',
+            body:
+             [ {
+                 type: 'flags',
+                 offset: 1,
+                 text: '?s-i:x',
+                 body: [ 's', '-', 'i' ] },
+               {
+                 type: 'match',
+                 offset: 6,
+                 text: 'x',
+                 body:
+                  [ {
+                      type: 'literal',
+                      offset: 6,
+                      text: 'x',
+                      body: 'x',
+                      escaped: false } ] } ] } } ] }
    ]
 ]
